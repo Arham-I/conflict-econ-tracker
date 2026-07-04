@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflict Economics Intelligence Dashboard</title>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#0b0f19',
+                        panelBg: 'rgba(17, 24, 39, 0.7)',
+                        borderGlow: 'rgba(239, 68, 68, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #05070c;
+            color: #f3f4f6;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ef4444;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #dc2626;
+        }
+        .glow-red {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+        }
+        .glow-amber {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden font-sans">
+
+    <!-- Top Header -->
+    <header class="border-b border-gray-800 bg-gray-950 px-6 py-4 flex justify-between items-center z-10">
+        <div class="flex items-center space-x-3">
+            <!-- Alert Dot -->
+            <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-white">CONFLICT ECONOMICS INTELLIGENCE DASHBOARD</h1>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Geopolitical Financial & Market Transmission Tracker (ADK Platform)</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="text-right">
+                <p class="text-xs text-gray-500">Last Analysis Run</p>
+                <p id="last-updated-time" class="text-sm font-semibold text-gray-300">Loading...</p>
+            </div>
+            <button onclick="triggerLiveRun()" id="run-btn" class="bg-red-600 hover:bg-red-700 text-white font-medium text-xs py-2 px-4 rounded border border-red-500 shadow-lg shadow-red-500/20 transition duration-200">
+                TRIGGER LIVE RUN
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 grid grid-cols-12 gap-4 p-4 overflow-hidden">
+        
+        <!-- Left Panel: Key Metrics Grid (inspired by JHU side-panel) -->
+        <div class="col-span-12 lg:col-span-3 flex flex-col space-y-4 overflow-y-auto">
+            
+            <!-- Sentiment Index Card -->
+            <div class="bg-gray-900/60 border border-gray-800 rounded-lg p-5 flex flex-col justify-center items-center text-center glow-red backdrop-blur-md">
+                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase mb-2">Market Sentiment Index</h3>
+                <div class="relative flex items-center justify-center">
+                    <span id="sentiment-score" class="text-6xl font-extrabold text-red-500 tracking-tighter">0.0</span>
+                    <span class="text-gray-500 text-2xl absolute -right-8 bottom-2">/10</span>
+                </div>
+                <p id="sentiment-desc" class="text-xs text-gray-400 mt-2 font-medium">Concern Level: Normal</p>
+                <div class="mt-3 flex items-center space-x-2 text-xs">
+                    <span class="text-gray-500">Shift since last run:</span>
+                    <span id="sentiment-shift" class="font-bold text-gray-300">0.0</span>
+                </div>
+            </div>
+
+            <!-- Commodities Section -->
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex flex-col flex-1 min-h-[220px] backdrop-blur-md">
+                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase border-b border-gray-850 pb-2 mb-3">Crude Energy Benchmarks</h3>
+                <div class="space-y-4 flex-1 flex flex-col justify-around">
+                    <!-- Brent -->
+                    <div class="flex justify-between items-center bg-gray-950/50 p-3 rounded border border-gray-850">
+                        <div>
+                            <p class="text-xs text-gray-400 font-medium">Brent Crude</p>
+                            <p id="brent-price" class="text-2xl font-bold text-white">$0.00</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="brent-change" class="text-sm font-bold px-2 py-0.5 rounded bg-gray-800 text-gray-400">0.00%</span>
+                            <p id="brent-trend" class="text-[10px] text-gray-500 uppercase mt-1">Unknown</p>
+                        </div>
+                    </div>
+                    <!-- WTI -->
+                    <div class="flex justify-between items-center bg-gray-950/50 p-3 rounded border border-gray-850">
+                        <div>
+                            <p class="text-xs text-gray-400 font-medium">WTI Crude</p>
+                            <p id="wti-price" class="text-2xl font-bold text-white">$0.00</p>
+                        </div>
+                        <div class="text-right">
+                            <span id="wti-change" class="text-sm font-bold px-2 py-0.5 rounded bg-gray-800 text-gray-400">0.00%</span>
+                            <p id="wti-trend" class="text-[10px] text-gray-500 uppercase mt-1">Unknown</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regional & Global Indices -->
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex flex-col flex-1 min-h-[260px] backdrop-blur-md">
+                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase border-b border-gray-850 pb-2 mb-2">Transmission Channels</h3>
+                <div class="flex-1 overflow-y-auto space-y-2 pr-1">
+                    <!-- Indices -->
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
+                        <span class="text-gray-300 font-medium">TADAWUL (Saudi)</span>
+                        <div class="text-right">
+                            <span id="index-tadawul-level" class="text-gray-300 font-bold">0.00</span>
+                            <span id="index-tadawul-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
+                        <span class="text-gray-300 font-medium">TA-35 (Israel)</span>
+                        <div class="text-right">
+                            <span id="index-ta35-level" class="text-gray-300 font-bold">0.00</span>
+                            <span id="index-ta35-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
+                        <span class="text-gray-300 font-medium">EGX-30 (Egypt)</span>
+                        <div class="text-right">
+                            <span id="index-egx30-level" class="text-gray-300 font-bold">0.00</span>
+                            <span id="index-egx30-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
+                        <span class="text-gray-300 font-medium">QE-Index (Qatar)</span>
+                        <div class="text-right">
+                            <span id="index-qe-level" class="text-gray-300 font-bold">0.00</span>
+                            <span id="index-qe-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                    <!-- Safe Havens -->
+                    <div class="border-t border-gray-800 my-2 pt-2"></div>
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs border border-amber-900/30">
+                        <span class="text-amber-500 font-medium flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 inline-block"></span>Gold (Spot)
+                        </span>
+                        <div class="text-right">
+                            <span id="gold-level" class="text-amber-100 font-bold">$0.00</span>
+                            <span id="gold-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
+                        <span class="text-gray-300 font-medium">USD Index (DXY)</span>
+                        <div class="text-right">
+                            <span id="usd-level" class="text-gray-300 font-bold">0.00</span>
+                            <span id="usd-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Middle Column: Interactive Charts & Agent Logs Terminal -->
+        <div class="col-span-12 lg:col-span-6 flex flex-col space-y-4 overflow-hidden relative">
+            
+            <!-- Chart Container -->
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex-1 flex flex-col overflow-hidden backdrop-blur-md">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Market Transmission Time Series</h3>
+                    <div class="flex space-x-2 text-xs">
+                        <button onclick="setChartType('oil')" id="chart-btn-oil" class="px-3 py-1 bg-red-950/50 border border-red-500 text-red-400 rounded">Crude Benchmarks</button>
+                        <button onclick="setChartType('gold')" id="chart-btn-gold" class="px-3 py-1 bg-gray-850 border border-gray-700 text-gray-400 rounded">Gold Futures</button>
+                    </div>
+                </div>
+                <!-- Canvas -->
+                <div class="flex-1 relative overflow-hidden flex justify-center items-center">
+                    <canvas id="historicalChart" class="w-full h-full max-h-[350px]"></canvas>
+                </div>
+            </div>
+
+            <!-- Chat Drawer / Live Terminal Log (Overlay) -->
+            <div id="terminal-overlay" class="hidden absolute inset-x-0 bottom-16 top-0 bg-gray-950/95 border border-red-900/40 rounded-lg flex flex-col overflow-hidden z-20 transition duration-300">
+                <div class="bg-gray-900 px-4 py-2 border-b border-gray-800 flex justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                        <h4 class="text-xs font-semibold text-red-500 tracking-wider uppercase">ADK Agent Pipeline terminal output</h4>
+                    </div>
+                    <button onclick="closeTerminal()" class="text-gray-400 hover:text-white text-xs">CLOSE OUTPUT</button>
+                </div>
+                <div id="terminal-logs" class="flex-1 p-4 font-mono text-xs text-green-400 overflow-y-auto space-y-1 bg-black">
+                    <!-- Logs loaded here -->
+                </div>
+            </div>
+
+            <!-- Analyst Commentary Panel -->
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 h-[180px] flex flex-col backdrop-blur-md overflow-hidden">
+                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase border-b border-gray-850 pb-2 mb-2">Synthesised Analyst commentary</h3>
+                <div id="analyst-commentary-text" class="flex-1 text-xs text-gray-300 leading-relaxed overflow-y-auto pr-1">
+                    No briefing text loaded. Run the agent pipeline to generate a fresh briefing.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Panel: Geopolitical News Feed (scrollable list) -->
+        <div class="col-span-12 lg:col-span-3 flex flex-col space-y-4 overflow-hidden">
+            
+            <!-- News Panel -->
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex-1 flex flex-col backdrop-blur-md overflow-hidden">
+                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase border-b border-gray-850 pb-2 mb-3">Conflict Economics News Feed</h3>
+                <div id="news-feed-list" class="flex-1 overflow-y-auto space-y-3 pr-1">
+                    <!-- News items populated dynamically -->
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Bottom Action Bar / "Ask the Analyst" (Chat Box drawer) -->
+    <footer class="border-t border-gray-800 bg-gray-950 px-6 py-3 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 z-10">
+        <div class="text-xs text-gray-500">
+            Kaggle 5-Day Capstone Project &copy; 2026. Made with Google ADK Framework.
+        </div>
+        <!-- Ask Chat Form -->
+        <div class="w-full md:w-[60%] flex items-center space-x-2 relative">
+            <input type="text" id="chat-input" placeholder="Ask the Lead Analyst a question about this daily briefing..." class="bg-gray-900 border border-gray-800 rounded py-1.5 px-3 text-xs w-full text-white focus:outline-none focus:border-red-500 transition">
+            <button onclick="askAnalyst()" id="chat-btn" class="bg-red-950/40 hover:bg-red-900/50 text-red-400 border border-red-900 font-semibold text-xs py-1.5 px-4 rounded transition">
+                ASK
+            </button>
+            
+            <!-- Floating Chat Panel -->
+            <div id="chat-drawer" class="hidden absolute bottom-12 right-0 left-0 bg-gray-950 border border-gray-850 rounded-lg shadow-2xl p-4 flex flex-col h-[280px] z-30 transition">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-2">
+                    <h4 class="text-xs font-semibold text-red-500 tracking-wider uppercase">Analyst Live Chat Session</h4>
+                    <button onclick="closeChat()" class="text-gray-400 hover:text-white text-xs">CLOSE CHAT</button>
+                </div>
+                <div id="chat-conversation" class="flex-1 overflow-y-auto text-xs space-y-2 pr-1">
+                    <!-- Q&A logs -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+        let briefings = [];
+        let activeChart = null;
+        let activeChartType = 'oil'; // 'oil' or 'gold'
+        let logPollInterval = null;
+
+        // On document load
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchData();
+        });
+
+        // Fetch metrics history
+        function fetchData() {
+            fetch('/api/briefings')
+                .then(res => res.json())
+                .then(data => {
+                    briefings = data;
+                    if (briefings.length > 0) {
+                        populateDashboard();
+                    } else {
+                        document.getElementById("analyst-commentary-text").innerText = "No briefings found. Please click 'TRIGGER LIVE RUN' to initialize the tracker and generate the first briefing.";
+                    }
+                })
+                .catch(err => {
+                    console.error("Error fetching data:", err);
+                });
+        }
+
+        // Populate elements
+        function populateDashboard() {
+            const latest = briefings[briefings.length - 1];
+
+            // Timestamp
+            const date = new Date(latest.timestamp);
+            document.getElementById("last-updated-time").innerText = date.toLocaleString();
+
+            // Sentiment Score
+            const sentiment = latest.sentiment_index || 5.0;
+            document.getElementById("sentiment-score").innerText = sentiment.toFixed(1);
+            
+            const shift = latest.deltas?.sentiment_shift || 0.0;
+            const shiftEl = document.getElementById("sentiment-shift");
+            shiftEl.innerText = (shift > 0 ? "+" : "") + shift.toFixed(1);
+            if (shift > 0) {
+                shiftEl.className = "font-bold text-red-500";
+            } else if (shift < 0) {
+                shiftEl.className = "font-bold text-green-500";
+            } else {
+                shiftEl.className = "font-bold text-gray-500";
+            }
+
+            const descEl = document.getElementById("sentiment-desc");
+            if (sentiment >= 8) {
+                descEl.innerText = "Concern Level: High Risk";
+                descEl.className = "text-xs text-red-500 mt-2 font-bold uppercase tracking-wider";
+            } else if (sentiment >= 5) {
+                descEl.innerText = "Concern Level: Moderate Caution";
+                descEl.className = "text-xs text-amber-500 mt-2 font-bold uppercase tracking-wider";
+            } else {
+                descEl.innerText = "Concern Level: Stable";
+                descEl.className = "text-xs text-green-500 mt-2 font-bold uppercase tracking-wider";
+            }
+
+            // Commodities
+            const wti = latest.oil_market?.WTI;
+            const brent = latest.oil_market?.Brent;
+            
+            if (wti) {
+                document.getElementById("wti-price").innerText = `$${wti.price.toFixed(2)}`;
+                const wtiChg = latest.deltas?.wti_change_pct || 0.0;
+                const wtiChgEl = document.getElementById("wti-change");
+                wtiChgEl.innerText = (wtiChg > 0 ? "+" : "") + wtiChg.toFixed(2) + "%";
+                wtiChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${wtiChg > 0 ? 'bg-red-950/40 text-red-400 border border-red-900/30' : 'bg-green-950/40 text-green-400 border border-green-900/30'}`;
+                document.getElementById("wti-trend").innerText = wti.trend || "Bearish";
+            }
+
+            if (brent) {
+                document.getElementById("brent-price").innerText = `$${brent.price.toFixed(2)}`;
+                const brentChg = latest.deltas?.brent_change_pct || 0.0;
+                const brentChgEl = document.getElementById("brent-change");
+                brentChgEl.innerText = (brentChg > 0 ? "+" : "") + brentChg.toFixed(2) + "%";
+                brentChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${brentChg > 0 ? 'bg-red-950/40 text-red-400 border border-red-900/30' : 'bg-green-950/40 text-green-400 border border-green-900/30'}`;
+                document.getElementById("brent-trend").innerText = brent.trend || "Bearish";
+            }
+
+            // Indices
+            const reg = latest.regional_indices;
+            if (reg) {
+                if (reg.TADAWUL) {
+                    document.getElementById("index-tadawul-level").innerText = reg.TADAWUL.level.toLocaleString();
+                    const tChg = latest.deltas?.tadawul_change_pct || reg.TADAWUL.pct_change;
+                    const tChgEl = document.getElementById("index-tadawul-change");
+                    tChgEl.innerText = (tChg > 0 ? "+" : "") + tChg.toFixed(2) + "%";
+                    tChgEl.className = tChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+                if (reg.TA_35) {
+                    document.getElementById("index-ta35-level").innerText = reg.TA_35.level.toLocaleString();
+                    const taChg = latest.deltas?.ta35_change_pct || reg.TA_35.pct_change;
+                    const taChgEl = document.getElementById("index-ta35-change");
+                    taChgEl.innerText = (taChg > 0 ? "+" : "") + taChg.toFixed(2) + "%";
+                    taChgEl.className = taChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+                if (reg.EGX_30) {
+                    document.getElementById("index-egx30-level").innerText = reg.EGX_30.level.toLocaleString();
+                    const eChg = reg.EGX_30.pct_change;
+                    const eChgEl = document.getElementById("index-egx30-change");
+                    eChgEl.innerText = (eChg > 0 ? "+" : "") + eChg.toFixed(2) + "%";
+                    eChgEl.className = eChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+                if (reg.QE_Index) {
+                    document.getElementById("index-qe-level").innerText = reg.QE_Index.level.toLocaleString();
+                    const qChg = reg.QE_Index.pct_change;
+                    const qChgEl = document.getElementById("index-qe-change");
+                    qChgEl.innerText = (qChg > 0 ? "+" : "") + qChg.toFixed(2) + "%";
+                    qChgEl.className = qChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+            }
+
+            // Safe Havens Gold and USD
+            const glob = latest.global_indicators;
+            if (glob) {
+                if (glob.Gold) {
+                    document.getElementById("gold-level").innerText = `$${glob.Gold.level.toLocaleString()}`;
+                    const gChg = latest.deltas?.gold_change_pct || glob.Gold.pct_change;
+                    const gChgEl = document.getElementById("gold-change");
+                    gChgEl.innerText = (gChg > 0 ? "+" : "") + gChg.toFixed(2) + "%";
+                    gChgEl.className = gChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+                if (glob.USD_Index) {
+                    document.getElementById("usd-level").innerText = glob.USD_Index.level.toFixed(2);
+                    const uChg = glob.USD_Index.pct_change;
+                    const uChgEl = document.getElementById("usd-change");
+                    uChgEl.innerText = (uChg > 0 ? "+" : "") + uChg.toFixed(2) + "%";
+                    uChgEl.className = uChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+            }
+
+            // Commentary
+            document.getElementById("analyst-commentary-text").innerText = latest.oil_market?.analyst_commentary || "No commentary compiled.";
+
+            // News Feed List
+            const feed = document.getElementById("news-feed-list");
+            feed.innerHTML = "";
+            
+            if (latest.news_summary && latest.news_summary.length > 0) {
+                latest.news_summary.forEach((item, index) => {
+                    const tagColor = item.impact_rating === "High" ? "bg-red-950/40 text-red-400 border-red-900/50" : item.impact_rating === "Medium" ? "bg-amber-950/40 text-amber-400 border-amber-900/50" : "bg-gray-800 text-gray-400 border-gray-700";
+                    const itemEl = document.createElement("div");
+                    itemEl.className = "bg-gray-950/40 border border-gray-850 p-3 rounded hover:border-gray-700 transition cursor-pointer";
+                    itemEl.onclick = () => showNewsDetail(item);
+                    itemEl.innerHTML = `
+                        <div class="flex justify-between items-start space-x-2">
+                            <h4 class="text-xs font-semibold text-white leading-snug">${item.title}</h4>
+                            <span class="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded border ${tagColor} shrink-0">${item.impact_rating}</span>
+                        </div>
+                        <p class="text-[10px] text-gray-500 mt-1">Source: ${item.source || "General News"}</p>
+                    `;
+                    feed.appendChild(itemEl);
+                });
+            } else {
+                feed.innerHTML = "<p class='text-xs text-gray-500'>No geopolitical economic headlines tracked.</p>";
+            }
+
+            // Draw Charts
+            renderCharts();
+        }
+
+        // Show News Detail Overlay/Modal (Modal alternative: inline details block)
+        function showNewsDetail(item) {
+            const commentary = document.getElementById("analyst-commentary-text");
+            commentary.innerHTML = `
+                <div class="border-l-2 border-red-500 pl-2">
+                    <h4 class="font-bold text-white text-xs mb-1">${item.title}</h4>
+                    <p class="text-gray-400 text-xs mb-2">Source: ${item.source} | Impact Rating: <strong class="text-red-400">${item.impact_rating}</strong></p>
+                    <p class="text-gray-300 text-xs mb-2 font-medium">Summary: ${item.summary}</p>
+                </div>
+            `;
+        }
+
+        // Render line charts
+        function renderCharts() {
+            const ctx = document.getElementById('historicalChart').getContext('2d');
+            if (activeChart) {
+                activeChart.destroy();
+            }
+
+            // Prepare datasets
+            const labels = briefings.map(b => {
+                const date = new Date(b.timestamp);
+                return date.toLocaleDateString(undefined, {month: 'short', day: 'numeric', hour: '2-digit'});
+            });
+
+            let datasets = [];
+
+            if (activeChartType === 'oil') {
+                const brentData = briefings.map(b => b.oil_market?.Brent?.price || null);
+                const wtiData = briefings.map(b => b.oil_market?.WTI?.price || null);
+
+                datasets = [
+                    {
+                        label: 'Brent Crude ($)',
+                        data: brentData,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.2,
+                        fill: true
+                    },
+                    {
+                        label: 'WTI Crude ($)',
+                        data: wtiData,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.2,
+                        fill: true
+                    }
+                ];
+            } else {
+                const goldData = briefings.map(b => b.global_indicators?.Gold?.level || null);
+                datasets = [
+                    {
+                        label: 'Gold Spot ($/oz)',
+                        data: goldData,
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.2,
+                        fill: true
+                    }
+                ];
+            }
+
+            activeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#94a3b8', font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#94a3b8', font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#f3f4f6', font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function setChartType(type) {
+            activeChartType = type;
+            const oilBtn = document.getElementById("chart-btn-oil");
+            const goldBtn = document.getElementById("chart-btn-gold");
+
+            if (type === 'oil') {
+                oilBtn.className = "px-3 py-1 bg-red-950/50 border border-red-500 text-red-400 rounded";
+                goldBtn.className = "px-3 py-1 bg-gray-850 border border-gray-700 text-gray-400 rounded";
+            } else {
+                goldBtn.className = "px-3 py-1 bg-amber-950/50 border border-amber-500 text-amber-400 rounded";
+                oilBtn.className = "px-3 py-1 bg-gray-850 border border-gray-700 text-gray-400 rounded";
+            }
+            renderCharts();
+        }
+
+        // Q&A chat drawer functions
+        function askAnalyst() {
+            const input = document.getElementById("chat-input");
+            const question = input.value.trim();
+            if (!question) return;
+
+            const chatDrawer = document.getElementById("chat-drawer");
+            const conversation = document.getElementById("chat-conversation");
+            
+            chatDrawer.classList.remove("hidden");
+            conversation.innerHTML += `<div class="mb-2 text-right"><span class="bg-gray-800 text-gray-200 px-2 py-1 rounded inline-block"><strong>You:</strong> ${question}</span></div>`;
+            conversation.innerHTML += `<div id="typing-indicator" class="mb-2 text-left text-gray-500 animate-pulse"><em>Analyst is typing response...</em></div>`;
+            input.value = "";
+            conversation.scrollTop = conversation.scrollHeight;
+
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: question })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const indicator = document.getElementById("typing-indicator");
+                if (indicator) indicator.remove();
+                
+                if (data.answer) {
+                    conversation.innerHTML += `<div class="mb-2 text-left border-l-2 border-red-500 pl-2 py-1 bg-gray-900/50 rounded"><strong>Lead Analyst:</strong> ${data.answer}</div>`;
+                } else if (data.error) {
+                    conversation.innerHTML += `<div class="mb-2 text-left text-red-500"><strong>Error:</strong> ${data.error}</div>`;
+                }
+                conversation.scrollTop = conversation.scrollHeight;
+            })
+            .catch(err => {
+                const indicator = document.getElementById("typing-indicator");
+                if (indicator) indicator.remove();
+                conversation.innerHTML += `<div class="mb-2 text-left text-red-500"><strong>System Error:</strong> Failed to fetch response.</div>`;
+            });
+        }
+
+        function closeChat() {
+            document.getElementById("chat-drawer").classList.add("hidden");
+        }
+
+        // Terminal run functions
+        function triggerLiveRun() {
+            const overlay = document.getElementById("terminal-overlay");
+            const logsDiv = document.getElementById("terminal-logs");
+            const runBtn = document.getElementById("run-btn");
+
+            runBtn.disabled = true;
+            runBtn.innerText = "RUNNING...";
+            overlay.classList.remove("hidden");
+            logsDiv.innerHTML = "<p class='animate-pulse'>Starting background subprocess execution...</p>";
+
+            fetch('/api/run', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    // Start polling status
+                    if (logPollInterval) clearInterval(logPollInterval);
+                    logPollInterval = setInterval(pollLogs, 1500);
+                })
+                .catch(err => {
+                    logsDiv.innerHTML += `<p class='text-red-500'>Failed to start run: ${err}</p>`;
+                    runBtn.disabled = false;
+                    runBtn.innerText = "TRIGGER LIVE RUN";
+                });
+        }
+
+        function pollLogs() {
+            const logsDiv = document.getElementById("terminal-logs");
+            const runBtn = document.getElementById("run-btn");
+
+            fetch('/api/run-status')
+                .then(res => res.json())
+                .then(data => {
+                    logsDiv.innerHTML = "";
+                    data.logs.forEach(log => {
+                        logsDiv.innerHTML += `<p>${log}</p>`;
+                    });
+                    logsDiv.scrollTop = logsDiv.scrollHeight;
+
+                    if (!data.is_running) {
+                        clearInterval(logPollInterval);
+                        runBtn.disabled = false;
+                        runBtn.innerText = "TRIGGER LIVE RUN";
+                        // Re-fetch briefings data
+                        fetchData();
+                    }
+                })
+                .catch(err => {
+                    console.error("Error polling logs:", err);
+                });
+        }
+
+        function closeTerminal() {
+            document.getElementById("terminal-overlay").classList.add("hidden");
+        }
+    </script>
+</body>
+</html>

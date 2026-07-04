@@ -1,0 +1,346 @@
+[
+  {
+    "timestamp": "2026-07-02T12:00:00Z",
+    "news_summary": [
+      {
+        "title": "Initial Geopolitical Market Baseline",
+        "source": "System Baseline",
+        "impact_rating": "Low",
+        "summary": "Initial baseline briefing for system testing."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 65.0,
+        "pct_change": 0.0,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 70.0,
+        "pct_change": 0.0,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Baseline commentary."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11000.0,
+        "change": 0.0,
+        "pct_change": 0.0
+      },
+      "TA_35": {
+        "level": 1900.0,
+        "change": 0.0,
+        "pct_change": 0.0
+      },
+      "EGX_30": {
+        "level": 28000.0,
+        "change": 0.0,
+        "pct_change": 0.0
+      },
+      "QE_Index": {
+        "level": 9800.0,
+        "change": 0.0,
+        "pct_change": 0.0
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 2300.0,
+        "change": 0.0,
+        "pct_change": 0.0
+      },
+      "USD_Index": {
+        "level": 105.0,
+        "change": 0.0,
+        "pct_change": 0.0
+      }
+    },
+    "sentiment_index": 5.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 0.0,
+      "days_since_last_briefing": 1
+    }
+  },
+  {
+    "timestamp": "2026-07-03T19:15:59.544616Z",
+    "news_summary": [
+      {
+        "title": "Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels",
+        "source": "Global Maritime Finance",
+        "impact_rating": "High",
+        "summary": "Insurance premiums rose 50% and transit times increased by 10-14 days due to route diversions. This substantially inflates global supply chain operating costs."
+      },
+      {
+        "title": "Strait of Hormuz Alert: Oil Tanker Transit Slows Under Increased Security Audits",
+        "source": "Energy & Geopolitics Weekly",
+        "impact_rating": "High",
+        "summary": "Oil tanker transit speed dropped 12% due to heightened security, injecting friction into global crude supply and raising carrying costs."
+      },
+      {
+        "title": "Regional Air Freight Costs Spike as Flight Paths Rerouted to Avoid Airspace",
+        "source": "Logistics Insider",
+        "impact_rating": "Medium",
+        "summary": "Rerouted flight paths add 15-20% fuel surcharges to Asia-Europe cargo, increasing logistics costs for high-value goods."
+      },
+      {
+        "title": "Sovereign Bond Yields Rise Across Emerging Market Energy Importers",
+        "source": "MacroDebt Analysis",
+        "impact_rating": "Medium",
+        "summary": "Bond yields for regional energy importers (e.g., Egypt, Jordan) widened by 45 basis points, signaling growing debt refinancing fears."
+      },
+      {
+        "title": "Saudi Aramco Shares Show Resilience Despite Regional Crude Volatility",
+        "source": "Middle East Markets Report",
+        "impact_rating": "Medium",
+        "summary": "Aramco shares held steady (31.20 SAR), mitigating systemic financial shock despite crude volatility due to state dividend assurances."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Crude futures show a marginal upward correction, factoring in a limited geopolitical risk premium. Despite modest gains, the technical trend remains Bearish. Key friction points are the 12% slowdown in Hormuz transit and the 50% jump in Red Sea insurance costs, establishing a strong foundation for volatility."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 2345.8,
+        "change": 18.5,
+        "pct_change": 0.79
+      },
+      "USD_Index": {
+        "level": 105.42,
+        "change": 0.31,
+        "pct_change": 0.29
+      }
+    },
+    "sentiment_index": 8.0,
+    "deltas": {
+      "brent_change_pct": 3.04,
+      "wti_change_pct": 5.82,
+      "tadawul_change_pct": 6.59,
+      "ta35_change_pct": 2.53,
+      "gold_change_pct": 1.99,
+      "sentiment_shift": 3.0,
+      "days_since_last_briefing": 1
+    }
+  },
+  {
+    "timestamp": "2026-07-03T19:16:00.000Z",
+    "news_summary": [
+      {
+        "title": "Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels",
+        "source": "Global Maritime Finance",
+        "impact_rating": "High",
+        "summary": "Insurance premiums increased by 50% and transit times lengthened by 10-14 days as vessels reroute around the Cape of Good Hope, inflating global maritime transit costs."
+      },
+      {
+        "title": "Strait of Hormuz Alert: Oil Tanker Transit Slows Under Increased Security Audits",
+        "source": "Energy & Geopolitics Weekly",
+        "impact_rating": "High",
+        "summary": "A 12% deceleration in tanker speeds due to heightened security audits and escorts through the Strait of Hormuz is restricting daily volume throughput on global markets."
+      },
+      {
+        "title": "Saudi Aramco Shares Show Resilience Despite Regional Crude Volatility",
+        "source": "Middle East Markets Report",
+        "impact_rating": "Medium",
+        "summary": "Aramco stocks held steady at 31.20 SAR as strong dividend assurances successfully offset localized regional crude price volatility."
+      },
+      {
+        "title": "Regional Air Freight Costs Spike as Flight Paths Rerouted to Avoid Airspace",
+        "source": "Logistics Insider",
+        "impact_rating": "Medium",
+        "summary": "Commercial cargo flights bypass regional airspace, leading to fuel surcharges of 15% to 20% on vital Asia-Europe shipping routes."
+      },
+      {
+        "title": "Sovereign Bond Yields Rise Across Emerging Market Energy Importers",
+        "source": "MacroDebt Analysis",
+        "impact_rating": "Medium",
+        "summary": "Sovereign bond yields for Jordan and Egypt widened by 45 basis points as growing energy import costs worsen debt refinancing outlooks."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Crude markets are navigating a structural tension between physical security risks\u2014such as the 12% transit slow-down in Hormuz and 50% premium spikes in the Red Sea\u2014and a bearish macroeconomic backdrop. Because both benchmarks remain trading below their 5-day SMAs, traders are treating regional disruptions as localized transport logistics bottlenecks rather than an acute global supply shortage."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 2345.8,
+        "change": 18.5,
+        "pct_change": 0.79
+      },
+      "USD_Index": {
+        "level": 105.42,
+        "change": 0.31,
+        "pct_change": 0.29
+      }
+    },
+    "sentiment_index": 6.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": -2.0,
+      "days_since_last_briefing": 1
+    }
+  },
+  {
+    "timestamp": "2026-07-03T19:20:00Z",
+    "news_summary": [
+      {
+        "title": "Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels",
+        "source": "Global Maritime Finance",
+        "impact_rating": "High",
+        "summary": "Maritime insurance underwriters raised premiums by 50% as shipping lines divert around the Cape of Good Hope, adding 10-14 days to standard transit times and introducing global inflationary pressure."
+      },
+      {
+        "title": "Strait of Hormuz Alert: Oil Tanker Transit Slows Under Increased Security Audits",
+        "source": "Energy & Geopolitics Weekly",
+        "impact_rating": "High",
+        "summary": "A 12% decline in oil tanker transit speeds through the Strait of Hormuz due to heightened security audits and military escorts limits daily crude flow to global markets."
+      },
+      {
+        "title": "Regional Air Freight Costs Spike as Flight Paths Rerouted to Avoid Airspace",
+        "source": "Logistics Insider",
+        "impact_rating": "Medium",
+        "summary": "Commercial air cargo carriers are avoiding regional airspace, necessitating longer flight paths that add 15-20% fuel surcharges on Asia-Europe cargo routes."
+      },
+      {
+        "title": "Sovereign Bond Yields Rise Across Emerging Market Energy Importers",
+        "source": "MacroDebt Analysis",
+        "impact_rating": "Medium",
+        "summary": "Bond yields for regional energy importers like Egypt and Jordan widened by 45 basis points due to growing debt refinancing fears amid rising logistics and energy costs."
+      },
+      {
+        "title": "Saudi Aramco Shares Show Resilience Despite Regional Crude Volatility",
+        "source": "Middle East Markets Report",
+        "impact_rating": "Medium",
+        "summary": "Saudi Aramco shares held steady at 31.20 SAR as state-guaranteed dividend assurances balanced crude price volatility and insulated regional equities."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Crude benchmarks are experiencing a short-term bearish trend, trading below their 5-day SMAs. This indicates that global demand concerns are offsetting immediate geopolitical risk premiums, even as physical transit slows by 12% through the Strait of Hormuz and Red Sea shipping routes face 10-14 day delays and a 50% jump in insurance premiums."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 2345.8,
+        "change": 18.5,
+        "pct_change": 0.79
+      },
+      "USD_Index": {
+        "level": 105.42,
+        "change": 0.31,
+        "pct_change": 0.29
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 1.0,
+      "days_since_last_briefing": 1
+    }
+  }
+]

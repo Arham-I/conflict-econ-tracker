@@ -1,0 +1,18 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "daily_briefing_command",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Generate the conflict economics intelligence briefing."}]
+      }
+    },
+    {
+      "eval_case_id": "economic_impact_query",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "What is the geopolitical market impact in the Middle East today?"}]
+      }
+    }
+  ]
+}
