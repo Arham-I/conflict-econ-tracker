@@ -342,5 +342,797 @@
       "sentiment_shift": 1.0,
       "days_since_last_briefing": 1
     }
+  },
+  {
+    "timestamp": "2026-07-04T15:00:00Z",
+    "news_summary": [
+      {
+        "title": "Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels",
+        "source": "Global Maritime Finance",
+        "impact_rating": "High",
+        "summary": "Commercial vessels are rerouting around the Cape of Good Hope, adding 10-14 days to journeys, while insurance premiums have surged by 50%, threatening to reignite inflation in Western markets."
+      },
+      {
+        "title": "Strait of Hormuz Alert: Oil Tanker Transit Slows Under Increased Security Audits",
+        "source": "Energy & Geopolitics Weekly",
+        "impact_rating": "High",
+        "summary": "A 12% deceleration in oil tanker transit speeds through the Strait of Hormuz acts as a physical supply restriction due to mandatory military escorts and security checks."
+      },
+      {
+        "title": "Regional Air Freight Costs Spike as Flight Paths Rerouted to Avoid Airspace",
+        "source": "Logistics Insider",
+        "impact_rating": "Medium",
+        "summary": "Rerouted flight paths around regional airspace are introducing fuel surcharges of 15% to 20% on critical Asia-Europe cargo lanes."
+      },
+      {
+        "title": "Sovereign Bond Yields Rise Across Emerging Market Energy Importers",
+        "source": "MacroDebt Analysis",
+        "impact_rating": "Medium",
+        "summary": "Egypt and Jordan face rising borrowing costs and refinancing risks, with sovereign bond yields widening by 45 basis points."
+      },
+      {
+        "title": "Saudi Aramco Shares Show Resilience Despite Regional Crude Volatility",
+        "source": "Middle East Markets Report",
+        "impact_rating": "Medium",
+        "summary": "Aramco shares held steady at 31.20 SAR as state-backed dividend assurances buffer the stock against regional oil market volatility."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Brent and WTI are pricing in supply route frictions with minor daily gains supported by the Strait of Hormuz slowdown and Red Sea insurance hikes. However, both benchmarks remain below their 5-day SMAs due to broader macroeconomic headwinds capping geopolitical upside."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 2345.8,
+        "change": 18.5,
+        "pct_change": 0.79
+      },
+      "USD_Index": {
+        "level": 105.42,
+        "change": 0.31,
+        "pct_change": 0.29
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 0.0,
+      "days_since_last_briefing": 1
+    }
+  },
+  {
+    "timestamp": "2026-07-04T14:46:00Z",
+    "news_summary": [
+      {
+        "title": "Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels",
+        "source": "Global Maritime Finance",
+        "impact_rating": "High",
+        "summary": "Insurance premiums have surged 50% for commercial vessels, forcing shipping lines to divert around the Cape of Good Hope. This detour adds 10 to 14 days to standard transit times, raising fuel and labor costs and driving up global freight rates."
+      },
+      {
+        "title": "Strait of Hormuz Alert: Oil Tanker Transit Slows Under Increased Security Audits",
+        "source": "Energy & Geopolitics Weekly",
+        "impact_rating": "High",
+        "summary": "Oil tanker transit speeds through the Strait of Hormuz have dropped by 12% due to heightened inspection protocols, security audits, and military escorts, causing delivery delays and constricting daily crude flows to international markets."
+      },
+      {
+        "title": "Regional Air Freight Costs Spike as Flight Paths Rerouted to Avoid Airspace",
+        "source": "Logistics Insider",
+        "impact_rating": "Medium",
+        "summary": "Commercial air cargo carriers are avoiding regional airspace, which has forced longer alternative routes and added 15% to 20% fuel surcharges on high-value Asia-Europe cargo corridors."
+      },
+      {
+        "title": "Sovereign Bond Yields Rise Across Emerging Market Energy Importers",
+        "source": "MacroDebt Analysis",
+        "impact_rating": "Medium",
+        "summary": "Sovereign bond yields for regional energy-importing nations, specifically Egypt and Jordan, widened by 45 basis points due to elevated refinancing concerns, putting further fiscal strain on high-debt economies."
+      },
+      {
+        "title": "Saudi Aramco Shares Show Resilience Despite Regional Crude Volatility",
+        "source": "Middle East Markets Report",
+        "impact_rating": "Medium",
+        "summary": "Saudi Aramco shares held steady at 31.20 SAR as state-backed dividend assurances successfully insulated the oil heavyweight from immediate regional price volatility."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "A sharp divergence has emerged between physical supply-chain frictions\u2014such as the 12% slower transit in the Strait of Hormuz and a 50% jump in Red Sea shipping insurance premiums\u2014and bearish crude futures momentum. Broad macroeconomic worries and comfortable global inventory levels act as heavy counterweights, keeping both benchmarks below their 5-day SMAs. Traders currently view the disruptions as transport-related delays rather than structural supply deficits."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 2345.8,
+        "change": 18.5,
+        "pct_change": 0.79
+      },
+      "USD_Index": {
+        "level": 105.42,
+        "change": 0.31,
+        "pct_change": 0.29
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 0.0,
+      "days_since_last_briefing": 1
+    }
+  },
+  {
+    "timestamp": "2026-07-04T15:42:19.760702Z",
+    "news_summary": [
+      {
+        "title": "Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels",
+        "source": "Global Maritime Finance",
+        "impact_rating": "High",
+        "summary": "Insurance premiums surged 50% as vessels reroute around the Cape of Good Hope, adding 10 to 14 days to standard transits and increasing operational costs."
+      },
+      {
+        "title": "Strait of Hormuz Alert: Oil Tanker Transit Slows Under Increased Security Audits",
+        "source": "Energy & Geopolitics Weekly",
+        "impact_rating": "High",
+        "summary": "Oil tanker transit speeds dropped 12% in the Strait of Hormuz due to heightened security protocols, introducing systemic friction and risk premiums to global oil supplies."
+      },
+      {
+        "title": "Saudi Aramco Shares Show Resilience Despite Regional Crude Volatility",
+        "source": "Middle East Markets Report",
+        "impact_rating": "Medium",
+        "summary": "Shares held steady at 31.20 SAR as state dividend assurances successfully insulated the region's largest listed firm from regional oil price volatility."
+      },
+      {
+        "title": "Regional Air Freight Costs Spike as Flight Paths Rerouted to Avoid Airspace",
+        "source": "Logistics Insider",
+        "impact_rating": "Medium",
+        "summary": "Commercial carriers avoiding regional airspace have added 15-20% fuel surcharges on Asia-Europe cargo routes, squeezing high-value, time-sensitive goods."
+      },
+      {
+        "title": "Sovereign Bond Yields Rise Across Emerging Market Energy Importers",
+        "source": "MacroDebt Analysis",
+        "impact_rating": "Medium",
+        "summary": "Egypt and Jordan's bond yields widened by 45 basis points due to debt refinancing concerns, intensifying fiscal strain on regional energy importing countries."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "EXECUTIVE RISK SUMMARY (RISK LEVEL: MODERATE CAUTION - INDEX: 6.0/10)\nRegional geopolitical risks remain elevated, driving caution across energy and regional equity markets. Today's risk posture is driven primarily by headlines regarding maritime transit routes, specifically the reports of \"Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels\" and security speed restrictions highlighted in the \"Strait of Hormuz Alert: Oil Tanker Transit Slows Under Increased Security Audits\".\n\nENERGY SECTOR TRANSMISSION CHANNEL:\nWithin the energy transmission channel, Brent crude ended the session at $72.13 (+0.46%), while WTI closed at $68.78 (+0.13%). Although the shipping halts have surged insurance premiums by 50% for vessels traversing the Suez Canal route, global oil prices remain technically bearish, trading below their 5-day moving averages. This divergence indicates that broader global macroeconomic demand concerns (such as slowing industrial manufacturing indices in major economies) are currently neutralizing the immediate geopolitical supply-side risk premiums.\n\nREGIONAL EQUITY & SAFE HAVEN CHANNELS:\nEquity channels and safe-haven assets reflect a defensive, risk-off posture. In the Middle East, Israel's TA-35 index declined -1.14% to 1,948.15 and Saudi's TADAWUL fell -0.38% to 11,724.80. UAE's DFMGI showed slight positive resilience, closing up +0.31% to 3,985.40, while Iran's TEPIX index dropped -0.59% to 2,085,420.00 points, reflecting heightened domestic economic concern. Safe-haven inflows were steady: Gold spot prices rose +0.79% to $2,345.80, and the US Dollar Index (DXY) edged up +0.29% to 105.42.\n\n48-HOUR MACROECONOMIC OUTLOOK:\nOver the next 48 hours, market participants should closely monitor transit volume metrics. The 12% drop in oil tanker speeds through the Strait of Hormuz represents the primary structural bottleneck; any prolonged delay there will likely trigger a breakout in crude benchmarks, bypassing the current demand-side resistance levels."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 3985.4,
+        "change": 12.5,
+        "pct_change": 0.31
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 2345.8,
+        "change": 18.5,
+        "pct_change": 0.79
+      },
+      "USD_Index": {
+        "level": 105.42,
+        "change": 0.31,
+        "pct_change": 0.29
+      }
+    },
+    "sentiment_index": 6.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": -1.0,
+      "days_since_last_briefing": 1
+    }
+  },
+  {
+    "timestamp": "2026-07-05T10:01:28.151391Z",
+    "news_summary": [
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "Dual-factor disruption in maritime freight and agricultural yield generating critical import inflation and forcing persistent central bank tightening across Southeast Asia."
+      },
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "High",
+        "summary": "Potential closure of the Strait of Hormuz remains a massive systemic threat, handling 20% of global petroleum liquids and risking severe supply-side shocks."
+      },
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Medium",
+        "summary": "Elevated energy inputs keep global manufacturing inflation high, making near-term Federal Reserve and ECB interest rate cuts highly unlikely."
+      },
+      {
+        "title": "Impact of the Middle East conflict on Asia-Pacific power markets",
+        "source": "Norton Rose Fulbright",
+        "impact_rating": "Medium",
+        "summary": "Rerouting of Middle Eastern LNG cargoes drives up shipping charter rates and increases regional exposure to volatile short-term spot utility markets."
+      },
+      {
+        "title": "Middle East and North Africa: Latest analysis, insights and developments",
+        "source": "The World Economic Forum",
+        "impact_rating": "Low",
+        "summary": "Focuses on long-term regional trade integration and economic diversification structures rather than driving immediate price action."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Executive Risk Summary (Risk Score: 7/10)\nGeopolitical risk remains elevated at a score of 7 out of 10. Despite moderate oil spot volatility, the massive gold surge underscores deep underlying structural anxieties.\n\nEnergy Transmission Channel\nWhile headlines such as the \"2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict\" highlight severe threat vectors to the global shipping artery of the Strait of Hormuz, prompt oil markets exhibit a notable divergence. Brent crude stands at $72.13 per barrel (+0.46% daily change) and WTI is at $68.78 (+0.13% daily change), both holding in bearish short-term trends below their respective 5-day moving averages. This divergence suggests that immediate physical supply buffers and broader global demand concerns\u2014intensified by the \"Compound shock effect: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia\"\u2014are offsetting the traditional geopolitical risk premium.\n\nEquity & Safe Haven Channels\nRisk-off sentiment is clearly transmitting into regional equities and safe havens. Tel Aviv's TA-35 benchmark dropped significantly by -1.14% to 1,948.15, while Saudi Arabia's TADAWUL fell -0.38% to 11,724.80, reflecting heightened regional security concerns and freight vulnerabilities. In contrast, capital has rapidly fled to safe havens, driving gold prices up by an aggressive +1.81% to a historic $4,187.30 per ounce. This robust capital flight occurred even as the USD Index weakened by -0.52% to 100.86, showing that investors are prioritizing hard physical assets over fiat reserves.\n\n48-Hour Macroeconomic Outlook\nOver the next 48 hours, expect persistent divergence between technical oil trading and safe-haven assets. Unless physical blockage of critical maritime channels occurs, oil benchmarks will likely struggle to breach immediate resistance levels. Meanwhile, regional equity indices like the TA-35 and TADAWUL are projected to remain defensive, highly sensitive to escalations."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 6059.14,
+        "change": 68.55,
+        "pct_change": 1.14
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4187.3,
+        "change": 74.6,
+        "pct_change": 1.81
+      },
+      "USD_Index": {
+        "level": 100.86,
+        "change": -0.53,
+        "pct_change": -0.52
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 78.5,
+      "sentiment_shift": 1.0,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
+  },
+  {
+    "timestamp": "2026-07-05T12:03:46.020359Z",
+    "news_summary": [
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "High",
+        "summary": "Evaluates transit risks in the Strait of Hormuz, which controls 20% of global liquid petroleum transit, risking immediate supply cuts and soaring marine insurance."
+      },
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "Analyses the vulnerable position of Southeast Asian emerging markets suffering from dual impacts of elevated energy costs and climate-related food insecurity."
+      },
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Medium",
+        "summary": "Details structural global inflation threats and GDP drags stemming from trade route diversions away from the Suez Canal."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "EXECUTIVE RISK SUMMARY (Risk Score: 7/10): The escalating geopolitical friction in the Middle East has elevated systemic financial risks, raising concerns to a level 7. While physical oil flows remain active, market anxieties are driving a clear divergence between soft global paper demand and escalating localized tension. Headlines such as the 2026 Iran war (Encyclopedia Britannica) highlight the severe threat of regional shipping blockades in the Strait of Hormuz, which acts as a persistent structural tax on global trade corridors. ENERGY TRANSMISSION CHANNEL: In energy markets, Brent crude trades at $72.13, registering a minor daily gain of +0.46%, while WTI crude sits at $68.78 with a +0.13% uptick. Both contracts remain in a short-term bearish trend below their 5-day SMAs. This reflects a notable market disconnect: despite the high risk of a supply squeeze in the Strait of Hormuz, macroeconomic demand headwinds are temporarily neutralizing the geopolitical risk premium. EQUITY & SAFE HAVEN CHANNELS: Regional equity markets reflect clear geopolitical strain. Israel's TA-35 fell -1.14% to 1,948.15, while Saudi Arabia's TADAWUL dipped -0.38% to 11,724.80. In contrast, safe-haven channels show aggressive capital protection. Spot Gold surged +1.81% to $4,187.30 per ounce, while the US Dollar Index dropped -0.52% to 100.86. This trend demonstrates that smart money is prioritizing physical collateral over paper cash, hedging against systemic trade disruptions. 48-HOUR MACROECONOMIC OUTLOOK: Over the next 48 hours, markets must evaluate compound vulnerabilities, such as those warned of in the Guardian report on the Compound shock effect of El Nino and Middle East energy price hikes. Higher spot utility prices and cargo diversions threaten to reignite global supply-chain inflation. If tensions worsen, expect Brent crude to break its bearish pattern toward $75, while regional equity markets face further downward pressure from expanding sovereign risk premiums."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 6059.14,
+        "change": 68.55,
+        "pct_change": 1.14
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4187.3,
+        "change": 74.6,
+        "pct_change": 1.81
+      },
+      "USD_Index": {
+        "level": 100.86,
+        "change": -0.53,
+        "pct_change": -0.52
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 0.0,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
+  },
+  {
+    "timestamp": "2026-07-05T12:19:52.493391Z",
+    "news_summary": [
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Medium",
+        "summary": "Analyzes long-term macroeconomic shocks, focusing on trade flow redirections, fiscal pressures, and persistent inflationary factors that may trigger prolonged restrictive monetary policy."
+      },
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "High",
+        "summary": "Highlights critical trade disruptions around the Strait of Hormuz, a maritime chokepoint responsible for approximately 20% of global petroleum transit, elevating risk premiums."
+      },
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "Evaluates how Red Sea shipping disruptions and climate shocks compound to drive up freight rates and import costs, creating severe stagflationary pressures in Southeast Asia."
+      },
+      {
+        "title": "Impact of the Middle East conflict on Asia-Pacific power markets",
+        "source": "Norton Rose Fulbright",
+        "impact_rating": "Medium",
+        "summary": "Details how reliance on Middle Eastern LNG makes Asia-Pacific power grids vulnerable to supply delays and price spikes, directly impacting industrial manufacturing costs."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Executive Risk Summary: Geopolitical concern remains highly elevated, warranting a Consolidated Conflict Risk Score of 7 out of 10. While immediate military escalations are partially contained, structural vulnerabilities in maritime trade and regional energy transport networks present a persistent threat to global economic stability.\n\nEnergy Transmission Channel: The threat of a broader confrontation, as explored in the report \u201c2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict,\u201d places critical trade bottlenecks at severe risk. Despite this vulnerability, energy benchmarks are displaying a notable divergence, with Brent crude rising a modest 0.46% to $72.13 and WTI edging up only 0.13% to $68.78. This soft physical pricing reflects demand-side macroeconomic headwinds that are temporarily offsetting the geopolitical risk premium of vessel reroutings.\n\nEquity & Safe Haven Channels: Financial markets show a clear risk-off posture. Underlining this fear, Israel\u2019s TA-35 dropped sharply by 1.14% to 1,948.15, and Saudi Arabia\u2019s TADAWUL fell 0.38% to 11,724.80. The most prominent transmission is seen in safe havens: Gold surged a massive 1.81% to $4,187.30, demonstrating an aggressive flight to safety even as the USD Index softened by 0.52% to 100.86, suggesting investors prefer hard assets over fiat cash.\n\n48-Hour Macroeconomic Outlook: Over the next 48 hours, markets are highly vulnerable to supply-chain shocks. As outlined in \u201c\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia,\u201d the combination of maritime shipping rerouting and rising transit costs is compounding inflation risks. If key shipping lanes remain threatened, expect a sudden upward reversal in crude benchmarks and continued accumulation of safe-haven assets."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 6059.14,
+        "change": 68.55,
+        "pct_change": 1.14
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4187.3,
+        "change": 74.6,
+        "pct_change": 1.81
+      },
+      "USD_Index": {
+        "level": 100.86,
+        "change": -0.53,
+        "pct_change": -0.52
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 0.0,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
+  },
+  {
+    "timestamp": "2026-07-05T13:33:51.463233Z",
+    "news_summary": [
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "The convergence of Red Sea shipping disruptions and El Ni\u00f1o weather patterns creates a compound inflationary shock, driving up freight rates, delay times, and import costs for critical agricultural inputs and commodities in Southeast Asia."
+      },
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "Medium",
+        "summary": "Heightened security risks surrounding the Strait of Hormuz chokepoint threaten daily oil flows of 20-21 million barrels, triggering spikes in maritime war risk insurance premiums."
+      },
+      {
+        "title": "Impact of the Middle East conflict on Asia-Pacific power markets",
+        "source": "Norton Rose Fulbright",
+        "impact_rating": "Medium",
+        "summary": "Regional tensions affect Liquefied Natural Gas (LNG) shipping corridors, forcing Asia-Pacific utilities to source fuel from higher-priced spot markets and boosting domestic electricity generation costs."
+      },
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Medium",
+        "summary": "Quantifies the macro-fiscal shocks of prolonged regional instability, analyzing capital flight, currency depreciation, and prolonged tight monetary policies from global central banks."
+      },
+      {
+        "title": "Military Escalation in the Middle East: Cushioning the Global Shock",
+        "source": "UNDP",
+        "impact_rating": "Low",
+        "summary": "Assesses how geopolitical instability disproportionately strains frontier markets and low-income developing nations, exacerbating sovereign debt vulnerabilities."
+      },
+      {
+        "title": "Middle East and North Africa: Latest analysis, insights and developments",
+        "source": "The World Economic Forum",
+        "impact_rating": "Low",
+        "summary": "Provides a comprehensive overview of macroeconomic developments, focusing on infrastructure and structural trade challenges across MENA economies."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Executive Risk Summary: Geopolitical stress in the Middle East has registered a risk score of 6 out of 10, indicating moderate but highly sensitive market exposure. Security alerts surrounding key trade choke points have induced cautious defensiveness across global desks, though immediate panic remains subdued.\n\nEnergy Transmission Channel: The energy complex is feeling the friction, yet benchmark movements reflect an underlying demand-side ceiling. Brent crude edged up marginally to $72.13 per barrel (+0.46%), while WTI crude hovered at $68.78 (+0.13%). Despite fears highlighted in headlines like '2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict' and potential threats to global transit, actual crude flows have not experienced physical curtailment. Consequently, both benchmarks remain technically bearish, trading below their short-term moving averages as demand worries cap risk premiums.\n\nEquity & Safe Haven Channels: The financial transmission is most visible in regional equities and safe-haven flows. Israel's Tel Aviv TA-35 plummeted -1.14% to 1,948.15 points, leading the risk-off charge, while Saudi Arabia's TADAWUL fell -0.38% to 11,724.80. This capital flight has directly accelerated a powerful rotation into defensive assets. Spot Gold surged by +1.81% to a stellar $4,187.30 per ounce, acting as the primary hedge against escalating maritime and logistical risks. Concurrently, a declining USD Index, down -0.52% to 100.86, has reduced entry friction for overseas buyers, amplifying gold's momentum.\n\n48-Hour Macroeconomic Outlook: Over the next 48 hours, markets will monitor secondary macroeconomic channels. The convergence of Red Sea shipping delays and environmental stressors, noted in 'Compound shock effect: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia', is expected to drive up maritime insurance premiums and freight rates, risking a persistent inflationary pass-through to spot LNG and agricultural import costs."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 6059.14,
+        "change": 68.55,
+        "pct_change": 1.14
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4187.3,
+        "change": 74.6,
+        "pct_change": 1.81
+      },
+      "USD_Index": {
+        "level": 100.86,
+        "change": -0.53,
+        "pct_change": -0.52
+      }
+    },
+    "sentiment_index": 6.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": -1.0,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
+  },
+  {
+    "timestamp": "2026-07-05T16:33:08.291647Z",
+    "news_summary": [
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "Middle East supply chain disruptions are interacting with El Ni\u00f1o weather patterns to inflate fuel prices and choke distribution of fertilizers, triggering agricultural input inflation across South-East Asia."
+      },
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "High",
+        "summary": "Direct security threats to the Strait of Hormuz risk disrupting 20% of daily global petroleum and LNG traffic, instantly increasing maritime insurance premiums and cargo transit risks."
+      },
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Medium",
+        "summary": "The broader conflict is causing structural shifts in trade routing and persistent inflation from logistics friction, delaying central bank monetary easing cycles."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.78,
+        "pct_change": 0.13,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.13,
+        "pct_change": 0.46,
+        "trend": "Bearish"
+      },
+      "analyst_commentary": "Executive Risk Summary (Risk Score: 7/10) The geopolitical risk profile across the Middle East remains highly elevated as localized escalations increasingly threaten broader global macro stability. The risk of conflict expansion near critical regional maritime arteries has led to a risk-off posture. This tension is punctuated by systemic threats surrounding the '2026 Iran war' and the critical 'Strait of Hormuz' chokepoint, while also feeding into APAC supply-chain vulnerabilities such as the 'Compound shock effect' reported in South-East Asia. Energy Transmission Channel Despite direct geopolitical threats to the Strait of Hormuz\u2014which channels 20% of global petroleum liquids\u2014energy markets exhibit a notable divergence. Short-term bearish momentum has kept prices capped below their 5-day moving averages. Brent crude rose slightly by 0.46% to $72.13 per barrel, while WTI ticked up 0.13% to $68.78. This minor upward friction represents a war-risk premium on maritime insurance, offset by persistent global macroeconomic demand headwinds. Equity & Safe Haven Channels Regional equity markets demonstrate classic risk-aversion, with Israel's TA-35 index plunging 1.14% to 1,948.15 and Saudi Arabia's TADAWUL softening by 0.38% to 11,724.80. The flight to safety has bypassed the US Dollar, which slipped 0.52% to 100.86, and rotated heavily into hard assets. Consequently, safe-haven Gold surged an impressive 1.81% to reach 4,187.30, indicating strong investor desire to hedge against supply-chain disruption and escalating conflict. 48-Hour Macroeconomic Outlook Over the next 48 hours, markets will remain highly sensitive to maritime transit security. If tensions in the Strait of Hormuz intensify, the latent energy transmission channel will likely override current technical bearishness, triggering a rapid upward correction in Brent and WTI toward their key resistance levels. Conversely, continued stability in transit will keep equities subdued and sustain gold's premium as structural inflation concerns linger."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 6059.14,
+        "change": 68.55,
+        "pct_change": 1.14
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4187.3,
+        "change": 74.6,
+        "pct_change": 1.81
+      },
+      "USD_Index": {
+        "level": 100.86,
+        "change": -0.53,
+        "pct_change": -0.52
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 1.0,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
   }
 ]

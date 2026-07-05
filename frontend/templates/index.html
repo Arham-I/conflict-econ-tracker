@@ -52,6 +52,64 @@
         .glow-amber {
             box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
         }
+        
+        /* Print stylesheet to cleanly render the synthesized economic report */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            header, footer, #run-btn, #terminal-overlay, #mock-warning-banner, .lg\:col-span-3, #historicalChart, .flex-1.relative.overflow-hidden, .flex.items-center.space-x-2, .border-b.border-gray-850.pb-2.mb-2, #chart-btn-oil, #chart-btn-gold, .col-span-12.lg\:col-span-3 {
+                display: none !important;
+            }
+            main {
+                display: block !important;
+                height: auto !important;
+                overflow: visible !important;
+                padding: 0 !important;
+            }
+            .lg\:col-span-6, .col-span-12.lg\:col-span-6 {
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: none !important;
+                display: block !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            #analyst-commentary-text {
+                color: black !important;
+                font-size: 14px !important;
+                line-height: 1.6 !important;
+                height: auto !important;
+                overflow: visible !important;
+                border: none !important;
+            }
+            .bg-gray-900\/60 {
+                background: white !important;
+                border: 2px solid #000 !important;
+                color: black !important;
+                box-shadow: none !important;
+                height: auto !important;
+                padding: 20px !important;
+            }
+            h3 {
+                color: black !important;
+                font-size: 16px !important;
+                border-bottom: 2px solid black !important;
+                padding-bottom: 5px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            #chat-print-overlay, #report-print-overlay {
+                display: block !important;
+                background: white !important;
+                color: black !important;
+                padding: 20px !important;
+                font-family: sans-serif !important;
+            }
+        }
     </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden font-sans">
@@ -70,9 +128,13 @@
             </div>
         </div>
         <div class="flex items-center space-x-4">
-            <div class="text-right">
-                <p class="text-xs text-gray-500">Last Analysis Run</p>
-                <p id="last-updated-time" class="text-sm font-semibold text-gray-300">Loading...</p>
+            <div class="text-right flex flex-col space-y-0.5">
+                <div class="text-xs text-gray-400">
+                    Latest Run: <span id="last-updated-time" class="font-semibold text-gray-200">Loading...</span>
+                </div>
+                <div class="text-[10px] text-gray-500 font-medium">
+                    Time lapsed since previous run: <span id="time-lapsed-context" class="text-amber-500 font-bold">...</span>
+                </div>
             </div>
             <button onclick="triggerLiveRun()" id="run-btn" class="bg-red-600 hover:bg-red-700 text-white font-medium text-xs py-2 px-4 rounded border border-red-500 shadow-lg shadow-red-500/20 transition duration-200">
                 TRIGGER LIVE RUN
@@ -83,12 +145,18 @@
     <!-- Main Content Area -->
     <main class="flex-1 grid grid-cols-12 gap-4 p-4 overflow-hidden">
         
+        <!-- Mock Data Warning Banner -->
+        <div id="mock-warning-banner" class="hidden col-span-12 bg-amber-950/40 border border-amber-900/50 rounded-lg p-3 flex items-center space-x-3 text-amber-300 text-xs shadow-md shadow-amber-950/20">
+            <span>⚠️ <strong>Simulated Data Notice:</strong> One or more live data feeds failed to load.</span>
+        </div>
+        
         <!-- Left Panel: Key Metrics Grid (inspired by JHU side-panel) -->
         <div class="col-span-12 lg:col-span-3 flex flex-col space-y-4 overflow-y-auto">
             
             <!-- Sentiment Index Card -->
             <div class="bg-gray-900/60 border border-gray-800 rounded-lg p-5 flex flex-col justify-center items-center text-center glow-red backdrop-blur-md">
-                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase mb-2">Market Sentiment Index</h3>
+                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Synthesised Risk Index</h3>
+                <p class="text-[9px] text-red-400 font-bold mt-0.5 uppercase tracking-wider">Proprietary ADK Agent Evaluation</p>
                 <div class="relative flex items-center justify-center">
                     <span id="sentiment-score" class="text-6xl font-extrabold text-red-500 tracking-tighter">0.0</span>
                     <span class="text-gray-500 text-2xl absolute -right-8 bottom-2">/10</span>
@@ -101,8 +169,11 @@
             </div>
 
             <!-- Commodities Section -->
-            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex flex-col flex-1 min-h-[220px] backdrop-blur-md">
-                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase border-b border-gray-850 pb-2 mb-3">Crude Energy Benchmarks</h3>
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex flex-col flex-shrink-0 min-h-[220px] backdrop-blur-md">
+                <div class="border-b border-gray-850 pb-1 mb-3">
+                    <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Crude Energy Benchmarks</h3>
+                    <p class="text-[9px] text-gray-500 font-semibold mt-0.5 uppercase tracking-wider">Daily Day-on-Day Performance</p>
+                </div>
                 <div class="space-y-4 flex-1 flex flex-col justify-around">
                     <!-- Brent -->
                     <div class="flex justify-between items-center bg-gray-950/50 p-3 rounded border border-gray-850">
@@ -130,8 +201,11 @@
             </div>
 
             <!-- Regional & Global Indices -->
-            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex flex-col flex-1 min-h-[260px] backdrop-blur-md">
-                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase border-b border-gray-850 pb-2 mb-2">Transmission Channels</h3>
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex flex-col flex-shrink-0 min-h-[285px] backdrop-blur-md">
+                <div class="border-b border-gray-850 pb-1 mb-2">
+                    <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Transmission Channels</h3>
+                    <p class="text-[9px] text-gray-500 font-semibold mt-0.5 uppercase tracking-wider">Daily Day-on-Day Index Performance</p>
+                </div>
                 <div class="flex-1 overflow-y-auto space-y-2 pr-1">
                     <!-- Indices -->
                     <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
@@ -160,6 +234,20 @@
                         <div class="text-right">
                             <span id="index-qe-level" class="text-gray-300 font-bold">0.00</span>
                             <span id="index-qe-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
+                        <span class="text-gray-300 font-medium">DFMGI (Dubai, UAE)</span>
+                        <div class="text-right">
+                            <span id="index-dfmgi-level" class="text-gray-300 font-bold">0.00</span>
+                            <span id="index-dfmgi-change" class="text-gray-400 ml-2">0.00%</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-950/40 p-2 rounded text-xs">
+                        <span class="text-gray-300 font-medium">TEPIX (Tehran, Iran)</span>
+                        <div class="text-right">
+                            <span id="index-tepix-level" class="text-gray-300 font-bold">0.00</span>
+                            <span id="index-tepix-change" class="text-gray-400 ml-2">0.00%</span>
                         </div>
                     </div>
                     <!-- Safe Havens -->
@@ -191,7 +279,10 @@
             <!-- Chart Container -->
             <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 flex-1 flex flex-col overflow-hidden backdrop-blur-md">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Market Transmission Time Series</h3>
+                    <div>
+                        <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Market Transmission Time Series</h3>
+                        <p class="text-[10px] text-gray-500 mt-0.5">X-axis dates are formatted in 24-hour local time</p>
+                    </div>
                     <div class="flex space-x-2 text-xs">
                         <button onclick="setChartType('oil')" id="chart-btn-oil" class="px-3 py-1 bg-red-950/50 border border-red-500 text-red-400 rounded">Crude Benchmarks</button>
                         <button onclick="setChartType('gold')" id="chart-btn-gold" class="px-3 py-1 bg-gray-850 border border-gray-700 text-gray-400 rounded">Gold Futures</button>
@@ -218,8 +309,24 @@
             </div>
 
             <!-- Analyst Commentary Panel -->
-            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 h-[180px] flex flex-col backdrop-blur-md overflow-hidden">
-                <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase border-b border-gray-850 pb-2 mb-2">Synthesised Analyst commentary</h3>
+            <div class="bg-gray-900/60 border border-gray-850 rounded-lg p-4 h-[220px] flex flex-col backdrop-blur-md overflow-hidden">
+                <div class="flex justify-between items-center border-b border-gray-850 pb-2 mb-2">
+                    <h3 class="text-xs font-semibold text-gray-400 tracking-wider uppercase">Synthesised Analyst commentary</h3>
+                    <div class="flex items-center space-x-2">
+                        <!-- Expand Commentary Button -->
+                        <button onclick="openCommentaryModal()" title="View Commentary in Fullscreen" class="px-2 py-0.5 bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded text-[10px] font-medium transition flex items-center space-x-1">
+                            <span>🔍</span> <span>Expand View</span>
+                        </button>
+                        <!-- Print PDF Button -->
+                        <button onclick="printReport()" title="Print Briefing Report to PDF" class="px-2 py-0.5 bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded text-[10px] font-medium transition flex items-center space-x-1">
+                            <span>📄</span> <span>Print PDF</span>
+                        </button>
+                        <!-- Email Client Button -->
+                        <button onclick="emailReport()" title="Send Briefing via local Mail Client" class="px-2 py-0.5 bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded text-[10px] font-medium transition flex items-center space-x-1">
+                            <span>✉️</span> <span>Email Report</span>
+                        </button>
+                    </div>
+                </div>
                 <div id="analyst-commentary-text" class="flex-1 text-xs text-gray-300 leading-relaxed overflow-y-auto pr-1">
                     No briefing text loaded. Run the agent pipeline to generate a fresh briefing.
                 </div>
@@ -258,7 +365,13 @@
             <div id="chat-drawer" class="hidden absolute bottom-12 right-0 left-0 bg-gray-950 border border-gray-850 rounded-lg shadow-2xl p-4 flex flex-col h-[280px] z-30 transition">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-2 mb-2">
                     <h4 class="text-xs font-semibold text-red-500 tracking-wider uppercase">Analyst Live Chat Session</h4>
-                    <button onclick="closeChat()" class="text-gray-400 hover:text-white text-xs">CLOSE CHAT</button>
+                    <div class="flex items-center space-x-2">
+                        <!-- Print Chat Button -->
+                        <button onclick="printChat()" title="Print Chat Conversation to PDF" class="px-2 py-0.5 bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded text-[9px] font-medium transition flex items-center space-x-1">
+                            <span>📄</span> <span>Print Chat</span>
+                        </button>
+                        <button onclick="closeChat()" class="text-gray-400 hover:text-white text-xs">CLOSE CHAT</button>
+                    </div>
                 </div>
                 <div id="chat-conversation" class="flex-1 overflow-y-auto text-xs space-y-2 pr-1">
                     <!-- Q&A logs -->
@@ -266,6 +379,30 @@
             </div>
         </div>
     </footer>
+
+    <!-- Analyst Commentary Fullscreen Focus Modal -->
+    <div id="commentary-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-6">
+        <div class="bg-gray-950 border border-gray-800 rounded-lg max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden glow-red">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b border-gray-850 px-6 py-4 bg-gray-900">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <h3 class="text-xs font-bold text-white tracking-wider uppercase">Lead Analyst Briefing Focus View</h3>
+                </div>
+                <button onclick="closeCommentaryModal()" class="text-gray-400 hover:text-white font-semibold text-sm transition duration-150">&times; Close</button>
+            </div>
+            <!-- Modal Body -->
+            <div id="commentary-modal-content" class="flex-1 p-6 overflow-y-auto text-sm text-gray-200 leading-relaxed font-serif whitespace-pre-line bg-gray-950">
+                <!-- Content injected here -->
+            </div>
+            <!-- Modal Footer -->
+            <div class="flex justify-end items-center border-t border-gray-850 px-6 py-4 bg-gray-900">
+                <button onclick="printReport()" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded text-xs font-semibold transition">
+                    📄 Print PDF
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- JavaScript logic -->
     <script>
@@ -284,7 +421,8 @@
             fetch('/api/briefings')
                 .then(res => res.json())
                 .then(data => {
-                    briefings = data;
+                    // Sort briefings chronologically by timestamp
+                    briefings = data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
                     if (briefings.length > 0) {
                         populateDashboard();
                     } else {
@@ -299,6 +437,28 @@
         // Populate elements
         function populateDashboard() {
             const latest = briefings[briefings.length - 1];
+
+            // Toggle simulated/mock data warning banner
+            const mockBanner = document.getElementById("mock-warning-banner");
+            const isMockNews = latest.news_summary && latest.news_summary.length > 0 && 
+                               latest.news_summary[0].title === "Red Sea Shipping Halts: Insurance Premiums Jump 50% for Commercial Vessels";
+            
+            const newsMocked = latest.is_mock_news || isMockNews;
+            const oilMocked = latest.is_mock_oil || false;
+            const indicesMocked = latest.is_mock_indices || false;
+            
+            if (latest && (latest.is_mock || newsMocked || oilMocked || indicesMocked)) {
+                let mockedSources = [];
+                if (newsMocked) mockedSources.push("News Feed");
+                if (oilMocked) mockedSources.push("Oil Markets");
+                if (indicesMocked) mockedSources.push("Regional Indices");
+                
+                const sourcesStr = mockedSources.join(", ");
+                document.querySelector("#mock-warning-banner span").innerHTML = `⚠️ <strong>Simulated Data Notice:</strong> The live feeds for [${sourcesStr}] failed to load and are displaying simulated data.`;
+                mockBanner.classList.remove("hidden");
+            } else {
+                mockBanner.classList.add("hidden");
+            }
 
             // Timestamp
             const date = new Date(latest.timestamp);
@@ -319,6 +479,25 @@
                 shiftEl.className = "font-bold text-gray-500";
             }
 
+            // Calculate time lapsed since penultimate run
+            if (briefings.length >= 2) {
+                const penultimate = briefings[briefings.length - 2];
+                const diffMs = new Date(latest.timestamp) - new Date(penultimate.timestamp);
+                const diffMins = Math.round(diffMs / (1000 * 60));
+                
+                let timeStr = "";
+                if (diffMins < 60) {
+                    timeStr = `${diffMins}m`;
+                } else {
+                    const hours = Math.floor(diffMins / 60);
+                    const mins = diffMins % 60;
+                    timeStr = mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+                }
+                document.getElementById("time-lapsed-context").innerText = timeStr;
+            } else {
+                document.getElementById("time-lapsed-context").innerText = "first run";
+            }
+
             const descEl = document.getElementById("sentiment-desc");
             if (sentiment >= 8) {
                 descEl.innerText = "Concern Level: High Risk";
@@ -337,7 +516,7 @@
             
             if (wti) {
                 document.getElementById("wti-price").innerText = `$${wti.price.toFixed(2)}`;
-                const wtiChg = latest.deltas?.wti_change_pct || 0.0;
+                const wtiChg = wti.pct_change || 0.0;
                 const wtiChgEl = document.getElementById("wti-change");
                 wtiChgEl.innerText = (wtiChg > 0 ? "+" : "") + wtiChg.toFixed(2) + "%";
                 wtiChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${wtiChg > 0 ? 'bg-red-950/40 text-red-400 border border-red-900/30' : 'bg-green-950/40 text-green-400 border border-green-900/30'}`;
@@ -346,7 +525,7 @@
 
             if (brent) {
                 document.getElementById("brent-price").innerText = `$${brent.price.toFixed(2)}`;
-                const brentChg = latest.deltas?.brent_change_pct || 0.0;
+                const brentChg = brent.pct_change || 0.0;
                 const brentChgEl = document.getElementById("brent-change");
                 brentChgEl.innerText = (brentChg > 0 ? "+" : "") + brentChg.toFixed(2) + "%";
                 brentChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${brentChg > 0 ? 'bg-red-950/40 text-red-400 border border-red-900/30' : 'bg-green-950/40 text-green-400 border border-green-900/30'}`;
@@ -358,14 +537,14 @@
             if (reg) {
                 if (reg.TADAWUL) {
                     document.getElementById("index-tadawul-level").innerText = reg.TADAWUL.level.toLocaleString();
-                    const tChg = latest.deltas?.tadawul_change_pct || reg.TADAWUL.pct_change;
+                    const tChg = reg.TADAWUL.pct_change || 0.0;
                     const tChgEl = document.getElementById("index-tadawul-change");
                     tChgEl.innerText = (tChg > 0 ? "+" : "") + tChg.toFixed(2) + "%";
                     tChgEl.className = tChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
                 }
                 if (reg.TA_35) {
                     document.getElementById("index-ta35-level").innerText = reg.TA_35.level.toLocaleString();
-                    const taChg = latest.deltas?.ta35_change_pct || reg.TA_35.pct_change;
+                    const taChg = reg.TA_35.pct_change || 0.0;
                     const taChgEl = document.getElementById("index-ta35-change");
                     taChgEl.innerText = (taChg > 0 ? "+" : "") + taChg.toFixed(2) + "%";
                     taChgEl.className = taChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
@@ -383,6 +562,20 @@
                     const qChgEl = document.getElementById("index-qe-change");
                     qChgEl.innerText = (qChg > 0 ? "+" : "") + qChg.toFixed(2) + "%";
                     qChgEl.className = qChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+                if (reg.DFMGI) {
+                    document.getElementById("index-dfmgi-level").innerText = reg.DFMGI.level.toLocaleString();
+                    const dfChg = reg.DFMGI.pct_change || 0.0;
+                    const dfChgEl = document.getElementById("index-dfmgi-change");
+                    dfChgEl.innerText = (dfChg > 0 ? "+" : "") + dfChg.toFixed(2) + "%";
+                    dfChgEl.className = dfChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
+                }
+                if (reg.TEPIX) {
+                    document.getElementById("index-tepix-level").innerText = reg.TEPIX.level.toLocaleString();
+                    const tpChg = reg.TEPIX.pct_change || 0.0;
+                    const tpChgEl = document.getElementById("index-tepix-change");
+                    tpChgEl.innerText = (tpChg > 0 ? "+" : "") + tpChg.toFixed(2) + "%";
+                    tpChgEl.className = tpChg > 0 ? "text-green-500 ml-2 font-bold" : "text-red-500 ml-2 font-bold";
                 }
             }
 
@@ -440,11 +633,23 @@
             const commentary = document.getElementById("analyst-commentary-text");
             commentary.innerHTML = `
                 <div class="border-l-2 border-red-500 pl-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded border border-red-950/40 bg-red-950/20 text-red-400">Headlines Detail View</span>
+                        <button onclick="restoreCommentary()" class="px-2 py-0.5 bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 rounded text-[9px] font-medium transition">
+                            ← Back to Commentary
+                        </button>
+                    </div>
                     <h4 class="font-bold text-white text-xs mb-1">${item.title}</h4>
-                    <p class="text-gray-400 text-xs mb-2">Source: ${item.source} | Impact Rating: <strong class="text-red-400">${item.impact_rating}</strong></p>
-                    <p class="text-gray-300 text-xs mb-2 font-medium">Summary: ${item.summary}</p>
+                    <p class="text-gray-400 text-[10px] mb-2">Source: ${item.source} | Impact Rating: <strong class="text-red-400">${item.impact_rating}</strong></p>
+                    <p class="text-gray-300 text-xs leading-relaxed font-medium"><strong>Assessment:</strong> ${item.summary || item.description || "No detail summary generated."}</p>
                 </div>
             `;
+        }
+
+        function restoreCommentary() {
+            if (briefings.length === 0) return;
+            const latest = briefings[briefings.length - 1];
+            document.getElementById("analyst-commentary-text").innerText = latest.oil_market?.analyst_commentary || "No commentary compiled.";
         }
 
         // Render line charts
@@ -454,8 +659,23 @@
                 activeChart.destroy();
             }
 
-            // Prepare datasets
-            const labels = briefings.map(b => {
+            // Filter briefings for chart plotting to ensure points are spaced by at least 1.5 hours
+            let chartBriefings = [];
+            if (briefings.length > 0) {
+                chartBriefings.push(briefings[0]);
+                for (let i = 1; i < briefings.length; i++) {
+                    const prevTime = new Date(chartBriefings[chartBriefings.length - 1].timestamp);
+                    const currTime = new Date(briefings[i].timestamp);
+                    const diffHours = (currTime - prevTime) / (1000 * 3600);
+                    // Keep if it is at least 1.5 hours after previous kept run, or if it is the absolute latest run
+                    if (diffHours >= 1.5 || i === briefings.length - 1) {
+                        chartBriefings.push(briefings[i]);
+                    }
+                }
+            }
+
+            // Prepare datasets using filtered groupings
+            const labels = chartBriefings.map(b => {
                 const date = new Date(b.timestamp);
                 return date.toLocaleDateString(undefined, {month: 'short', day: 'numeric', hour: '2-digit'});
             });
@@ -463,8 +683,8 @@
             let datasets = [];
 
             if (activeChartType === 'oil') {
-                const brentData = briefings.map(b => b.oil_market?.Brent?.price || null);
-                const wtiData = briefings.map(b => b.oil_market?.WTI?.price || null);
+                const brentData = chartBriefings.map(b => b.oil_market?.Brent?.price || null);
+                const wtiData = chartBriefings.map(b => b.oil_market?.WTI?.price || null);
 
                 datasets = [
                     {
@@ -487,7 +707,7 @@
                     }
                 ];
             } else {
-                const goldData = briefings.map(b => b.global_indicators?.Gold?.level || null);
+                const goldData = chartBriefings.map(b => b.global_indicators?.Gold?.level || null);
                 datasets = [
                     {
                         label: 'Gold Spot ($/oz)',
@@ -499,6 +719,23 @@
                         fill: true
                     }
                 ];
+            }
+
+            // Calculate dynamic min/max bounds for the y-axis to zoom in on fluctuations
+            let allNumbers = datasets.flatMap(d => d.data).filter(n => n !== null);
+            let yAxisMin = undefined;
+            let yAxisMax = undefined;
+            if (allNumbers.length > 0) {
+                const minVal = Math.min(...allNumbers);
+                const maxVal = Math.max(...allNumbers);
+                const range = maxVal - minVal;
+                if (range > 0) {
+                    yAxisMin = Math.floor(minVal - range * 0.1);
+                    yAxisMax = Math.ceil(maxVal + range * 0.1);
+                } else {
+                    yAxisMin = Math.floor(minVal * 0.99);
+                    yAxisMax = Math.ceil(maxVal * 1.01);
+                }
             }
 
             activeChart = new Chart(ctx, {
@@ -517,7 +754,9 @@
                         },
                         y: {
                             grid: { color: '#1e293b' },
-                            ticks: { color: '#94a3b8', font: { size: 10 } }
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            min: yAxisMin,
+                            max: yAxisMax
                         }
                     },
                     plugins: {
@@ -587,6 +826,108 @@
             document.getElementById("chat-drawer").classList.add("hidden");
         }
 
+        // Off-screen iframe printer to eliminate screen flickering
+        function printHtmlInIframe(htmlContent) {
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'absolute';
+            iframe.style.width = '0px';
+            iframe.style.height = '0px';
+            iframe.style.border = 'none';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
+            
+            document.body.appendChild(iframe);
+            
+            const doc = iframe.contentWindow.document;
+            doc.open();
+            doc.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Briefing Print Session</title>
+                    <style>
+                        body {
+                            background: white !important;
+                            color: black !important;
+                            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+                            padding: 30px !important;
+                            margin: 0 !important;
+                            -webkit-print-color-adjust: exact !important;
+                            print-color-adjust: exact !important;
+                        }
+                        
+                        /* Chat printing specific styles */
+                        .chat-msg {
+                            color: black !important;
+                            background: #f9f9f9 !important;
+                            border: 1px solid #ccc !important;
+                            padding: 10px !important;
+                            margin-bottom: 10px !important;
+                            border-radius: 4px !important;
+                            font-size: 13px !important;
+                            line-height: 1.5 !important;
+                            page-break-inside: avoid;
+                        }
+                        .chat-msg.text-right {
+                            text-align: right !important;
+                            background: #f0f4f8 !important;
+                            border-color: #dbeafe !important;
+                        }
+                        .chat-msg.text-right span {
+                            background: transparent !important;
+                            color: black !important;
+                            font-weight: bold !important;
+                        }
+                        .chat-msg.text-left {
+                            border-left: 4px solid #ef4444 !important;
+                        }
+                        
+                        /* General helper classes */
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 10px;
+                            font-family: monospace;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${htmlContent}
+                </body>
+                </html>
+            `);
+            doc.close();
+            
+            setTimeout(() => {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+                setTimeout(() => {
+                    iframe.remove();
+                }, 1000);
+            }, 150);
+        }
+
+        function printChat() {
+            const conversationHtml = document.getElementById("chat-conversation").innerHTML;
+            if (!conversationHtml.trim()) {
+                alert("No chat history available to print.");
+                return;
+            }
+
+            const printHtml = `
+                <div style="border-bottom: 3px double black; padding-bottom: 12px; margin-bottom: 25px; text-align: center;">
+                    <h1 style="font-size: 18px; font-weight: bold; margin: 0; text-transform: uppercase;">
+                        Geopolitical Financial Analyst Chat Session
+                    </h1>
+                </div>
+                <div style="padding-top: 10px;">
+                    ${conversationHtml.replace(/class="mb-2 text-right"/g, 'class="chat-msg text-right"')
+                                      .replace(/class="mb-2 text-left[^"]*"/g, 'class="chat-msg text-left"')}
+                </div>
+            `;
+            printHtmlInIframe(printHtml);
+        }
+
         // Terminal run functions
         function triggerLiveRun() {
             const overlay = document.getElementById("terminal-overlay");
@@ -640,6 +981,255 @@
 
         function closeTerminal() {
             document.getElementById("terminal-overlay").classList.add("hidden");
+        }
+
+        // Print / Email Functions
+        function printReport() {
+            if (briefings.length === 0) {
+                alert("No briefing report available to print.");
+                return;
+            }
+            const latest = briefings[briefings.length - 1];
+            
+            const sentiment = latest.sentiment_index || 5.0;
+            const riskTier = sentiment >= 8 ? "High Risk" : sentiment >= 5 ? "Moderate Caution" : "Stable";
+            const commentary = latest.oil_market?.analyst_commentary || "No commentary available.";
+            
+            const brentPrice = latest.oil_market?.Brent?.price?.toFixed(2) || "0.00";
+            const brentChg = latest.oil_market?.Brent?.pct_change || 0.0;
+            const wtiPrice = latest.oil_market?.WTI?.price?.toFixed(2) || "0.00";
+            const wtiChg = latest.oil_market?.WTI?.pct_change || 0.0;
+            
+            const tadawulPrice = latest.regional_indices?.TADAWUL?.level?.toLocaleString() || "0.00";
+            const tadawulChg = latest.regional_indices?.TADAWUL?.pct_change || 0.0;
+            const ta35Price = latest.regional_indices?.TA_35?.level?.toLocaleString() || "0.00";
+            const ta35Chg = latest.regional_indices?.TA_35?.pct_change || 0.0;
+            const egxPrice = latest.regional_indices?.EGX_30?.level?.toLocaleString() || "0.00";
+            const egxChg = latest.regional_indices?.EGX_30?.pct_change || 0.0;
+            const qePrice = latest.regional_indices?.QE_Index?.level?.toLocaleString() || "0.00";
+            const qeChg = latest.regional_indices?.QE_Index?.pct_change || 0.0;
+            const dfmPrice = latest.regional_indices?.DFMGI?.level?.toLocaleString() || "0.00";
+            const dfmChg = latest.regional_indices?.DFMGI?.pct_change || 0.0;
+            const tepixPrice = latest.regional_indices?.TEPIX?.level?.toLocaleString() || "0.00";
+            const tepixChg = latest.regional_indices?.TEPIX?.pct_change || 0.0;
+            
+            const goldPrice = latest.global_indicators?.Gold?.level?.toLocaleString() || "0.00";
+            const goldChg = latest.global_indicators?.Gold?.pct_change || 0.0;
+            const usdPrice = latest.global_indicators?.USD_Index?.level?.toFixed(2) || "0.00";
+            const usdChg = latest.global_indicators?.USD_Index?.pct_change || 0.0;
+
+            const commentaryHtml = commentary.replace(/\n\n/g, "</p><p style='margin: 0 0 10px 0;'>").replace(/\n/g, "<br>");
+
+            const reportHtml = `
+                <div style="border-bottom: 3px double black; padding-bottom: 12px; margin-bottom: 25px; text-align: center;">
+                    <h1 style="font-size: 20px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; margin: 0 0 5px 0; font-family: sans-serif;">
+                        Conflict Economics Intelligence Briefing Report
+                    </h1>
+                    <p style="font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1.5px; margin: 0; font-weight: 600;">
+                        Geopolitical Financial & Market Transmission Tracker (ADK Platform)
+                    </p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 25px; font-family: monospace; padding-bottom: 12px; border-bottom: 1px solid #ddd;">
+                    <div>
+                        <strong>GENERATED (UTC):</strong> ${latest.timestamp}<br>
+                        <strong>RISK INDEX:</strong> ${sentiment}/10 (${riskTier})
+                    </div>
+                    <div style="text-align: right;">
+                        <strong>CLASSIFICATION:</strong> PROPRIETARY EVALUATION<br>
+                        <strong>SYSTEM TARGETS:</strong> ACTIVE PIPELINE DATA
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h2 style="font-size: 12px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid black; padding-bottom: 4px; margin-bottom: 12px; font-family: sans-serif;">
+                        Lead Analyst Commentary & Geopolitical Synthesis
+                    </h2>
+                    <div style="font-size: 11.5px; line-height: 1.6; text-align: justify; font-family: serif; color: #111;">
+                        <p style="margin: 0 0 10px 0;">${commentaryHtml}</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; gap: 20px; margin-bottom: 25px;">
+                    <div style="flex: 1;">
+                        <h3 style="font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px dashed black; padding-bottom: 3px; margin: 0 0 10px 0; font-family: sans-serif;">
+                            Crude Benchmarks
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 10px; font-family: monospace;">
+                            <tr>
+                                <td style="padding: 4px 0;">Brent Crude</td>
+                                <td style="text-align: right; padding: 4px 0; font-weight: bold;">$${brentPrice}</td>
+                                <td style="text-align: right; padding: 4px 0; color: ${brentChg >= 0 ? "green" : "red"}; font-weight: bold;">(${brentChg > 0 ? "+" : ""}${brentChg.toFixed(2)}%)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">WTI Crude</td>
+                                <td style="text-align: right; padding: 4px 0; font-weight: bold;">$${wtiPrice}</td>
+                                <td style="text-align: right; padding: 4px 0; color: ${wtiChg >= 0 ? "green" : "red"}; font-weight: bold;">(${wtiChg > 0 ? "+" : ""}${wtiChg.toFixed(2)}%)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="flex: 1.2;">
+                        <h3 style="font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px dashed black; padding-bottom: 3px; margin: 0 0 10px 0; font-family: sans-serif;">
+                            Transmission Channels
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 10px; font-family: monospace;">
+                            <tr>
+                                <td style="padding: 3px 0;">TADAWUL (Saudi)</td>
+                                <td style="text-align: right; padding: 3px 0; font-weight: bold;">${tadawulPrice}</td>
+                                <td style="text-align: right; padding: 3px 0; color: ${tadawulChg >= 0 ? "green" : "red"}; font-weight: bold;">(${tadawulChg > 0 ? "+" : ""}${tadawulChg.toFixed(2)}%)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 3px 0;">TA-35 (Israel)</td>
+                                <td style="text-align: right; padding: 3px 0; font-weight: bold;">${ta35Price}</td>
+                                <td style="text-align: right; padding: 3px 0; color: ${ta35Chg >= 0 ? "green" : "red"}; font-weight: bold;">(${ta35Chg > 0 ? "+" : ""}${ta35Chg.toFixed(2)}%)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 3px 0;">EGX-30 (Egypt)</td>
+                                <td style="text-align: right; padding: 3px 0; font-weight: bold;">${egxPrice}</td>
+                                <td style="text-align: right; padding: 3px 0; color: ${egxChg >= 0 ? "green" : "red"}; font-weight: bold;">(${egxChg > 0 ? "+" : ""}${egxChg.toFixed(2)}%)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 3px 0;">QE-Index (Qatar)</td>
+                                <td style="text-align: right; padding: 3px 0; font-weight: bold;">${qePrice}</td>
+                                <td style="text-align: right; padding: 3px 0; color: ${qeChg >= 0 ? "green" : "red"}; font-weight: bold;">(${qeChg > 0 ? "+" : ""}${qeChg.toFixed(2)}%)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 3px 0;">DFMGI (Dubai)</td>
+                                <td style="text-align: right; padding: 3px 0; font-weight: bold;">${dfmPrice}</td>
+                                <td style="text-align: right; padding: 3px 0; color: ${dfmChg >= 0 ? "green" : "red"}; font-weight: bold;">(${dfmChg > 0 ? "+" : ""}${dfmChg.toFixed(2)}%)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 3px 0;">TEPIX (Tehran)</td>
+                                <td style="text-align: right; padding: 3px 0; font-weight: bold;">${tepixPrice}</td>
+                                <td style="text-align: right; padding: 3px 0; color: ${tepixChg >= 0 ? "green" : "red"}; font-weight: bold;">(${tepixChg > 0 ? "+" : ""}${tepixChg.toFixed(2)}%)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="flex: 1;">
+                        <h3 style="font-size: 10px; font-weight: 700; text-transform: uppercase; border-bottom: 1px dashed black; padding-bottom: 3px; margin: 0 0 10px 0; font-family: sans-serif;">
+                            Safe Havens
+                        </h3>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 10px; font-family: monospace;">
+                            <tr>
+                                <td style="padding: 4px 0;">Gold Spot</td>
+                                <td style="text-align: right; padding: 4px 0; font-weight: bold;">$${goldPrice}</td>
+                                <td style="text-align: right; padding: 4px 0; color: ${goldChg >= 0 ? "green" : "red"}; font-weight: bold;">(${goldChg > 0 ? "+" : ""}${goldChg.toFixed(2)}%)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 4px 0;">USD Index</td>
+                                <td style="text-align: right; padding: 4px 0; font-weight: bold;">${usdPrice}</td>
+                                <td style="text-align: right; padding: 4px 0; color: ${usdChg >= 0 ? "green" : "red"}; font-weight: bold;">(${usdChg > 0 ? "+" : ""}${usdChg.toFixed(2)}%)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #ddd; padding-top: 10px; font-size: 8px; color: #666; text-align: center; font-family: sans-serif;">
+                    This briefing was generated automatically by the Conflict Economics Multi-Agent Geopolitical Financial Tracker using the Google ADK Framework.
+                </div>
+            `;
+            printHtmlInIframe(reportHtml);
+        }
+
+        function emailReport() {
+            if (briefings.length === 0) {
+                alert("No briefing report available to email.");
+                return;
+            }
+            const latest = briefings[briefings.length - 1];
+            
+            const sentiment = latest.sentiment_index || 5.0;
+            const riskTier = sentiment >= 8 ? "High Risk" : sentiment >= 5 ? "Moderate Caution" : "Stable";
+            const commentary = latest.oil_market?.analyst_commentary || "No commentary available.";
+            
+            const subject = `CONFLICT ECONOMICS BRIEFING REPORT - Synthesised Risk: ${sentiment}/10 (${riskTier})`;
+            
+            const brentPrice = latest.oil_market?.Brent?.price?.toFixed(2) || "0.00";
+            const brentChg = latest.oil_market?.Brent?.pct_change || 0.0;
+            const wtiPrice = latest.oil_market?.WTI?.price?.toFixed(2) || "0.00";
+            const wtiChg = latest.oil_market?.WTI?.pct_change || 0.0;
+            
+            const tadawulPrice = latest.regional_indices?.TADAWUL?.level?.toLocaleString() || "0.00";
+            const tadawulChg = latest.regional_indices?.TADAWUL?.pct_change || 0.0;
+            const ta35Price = latest.regional_indices?.TA_35?.level?.toLocaleString() || "0.00";
+            const ta35Chg = latest.regional_indices?.TA_35?.pct_change || 0.0;
+            const egxPrice = latest.regional_indices?.EGX_30?.level?.toLocaleString() || "0.00";
+            const egxChg = latest.regional_indices?.EGX_30?.pct_change || 0.0;
+            const qePrice = latest.regional_indices?.QE_Index?.level?.toLocaleString() || "0.00";
+            const qeChg = latest.regional_indices?.QE_Index?.pct_change || 0.0;
+            const dfmPrice = latest.regional_indices?.DFMGI?.level?.toLocaleString() || "0.00";
+            const dfmChg = latest.regional_indices?.DFMGI?.pct_change || 0.0;
+            const tepixPrice = latest.regional_indices?.TEPIX?.level?.toLocaleString() || "0.00";
+            const tepixChg = latest.regional_indices?.TEPIX?.pct_change || 0.0;
+            
+            const goldPrice = latest.global_indicators?.Gold?.level?.toLocaleString() || "0.00";
+            const goldChg = latest.global_indicators?.Gold?.pct_change || 0.0;
+            const usdPrice = latest.global_indicators?.USD_Index?.level?.toFixed(2) || "0.00";
+            const usdChg = latest.global_indicators?.USD_Index?.pct_change || 0.0;
+            
+            const body = `======================================================================
+CONFLICT ECONOMICS INTELLIGENCE BRIEFING REPORT
+Generated: ${latest.timestamp} (UTC)
+Risk Rating: ${sentiment}/10 (${riskTier})
+======================================================================
+
+LEAD ANALYST COMMENTARY & SYNTHESIS:
+----------------------------------------------------------------------
+${commentary}
+
+CRUDE ENERGY BENCHMARKS:
+----------------------------------------------------------------------
+Brent Crude: $${brentPrice} (${brentChg > 0 ? "+" : ""}${brentChg.toFixed(2)}%)
+WTI Crude:   $${wtiPrice} (${wtiChg > 0 ? "+" : ""}${wtiChg.toFixed(2)}%)
+
+TRANSMISSION CHANNELS (EQUITY INDICES):
+----------------------------------------------------------------------
+TADAWUL (Saudi):  ${tadawulPrice} (${tadawulChg > 0 ? "+" : ""}${tadawulChg.toFixed(2)}%)
+TA-35 (Israel):   ${ta35Price} (${ta35Chg > 0 ? "+" : ""}${ta35Chg.toFixed(2)}%)
+EGX-30 (Egypt):   ${egxPrice} (${egxChg > 0 ? "+" : ""}${egxChg.toFixed(2)}%)
+QE-Index (Qatar): ${qePrice} (${qeChg > 0 ? "+" : ""}${qeChg.toFixed(2)}%)
+DFMGI (Dubai):    ${dfmPrice} (${dfmChg > 0 ? "+" : ""}${dfmChg.toFixed(2)}%)
+TEPIX (Tehran):   ${tepixPrice} (${tepixChg > 0 ? "+" : ""}${tepixChg.toFixed(2)}%)
+
+SAFE HAVENS:
+----------------------------------------------------------------------
+Gold (Spot): $${goldPrice} (${goldChg > 0 ? "+" : ""}${goldChg.toFixed(2)}%)
+USD Index:   ${usdPrice} (${usdChg > 0 ? "+" : ""}${usdChg.toFixed(2)}%)
+
+----------------------------------------------------------------------
+This briefing was generated automatically by the Conflict Economics
+Multi-Agent Geopolitical Financial Tracker using the Google ADK Framework.
+`;
+            
+            const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
+        }
+
+        // Fullscreen Commentary Focus View Modal Handlers
+        function openCommentaryModal() {
+            if (briefings.length === 0) {
+                alert("No briefing report available to expand.");
+                return;
+            }
+            const latest = briefings[briefings.length - 1];
+            let commentaryText = latest.oil_market?.analyst_commentary || "No commentary compiled.";
+            
+            // If the commentary container is showing a news detail summary, expand that instead
+            const commentaryContainer = document.getElementById("analyst-commentary-text");
+            if (commentaryContainer.innerHTML.includes("Headlines Detail View")) {
+                commentaryText = commentaryContainer.innerText;
+            }
+
+            // Populate and reveal
+            const modalContent = document.getElementById("commentary-modal-content");
+            modalContent.innerText = commentaryText;
+            document.getElementById("commentary-modal").classList.remove("hidden");
+        }
+
+        function closeCommentaryModal() {
+            document.getElementById("commentary-modal").classList.add("hidden");
         }
     </script>
 </body>

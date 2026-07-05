@@ -1,61 +1,97 @@
-# Coding Agent Guide
+# Specification: Conflict Economics Intelligence Dashboard
 
-## Prerequisites
+This specification outlines the architecture, roles, constraints, and success criteria for the multi-agent geopolitical financial/economic impact tracker.
 
-Install the CLI (one-time):
-```bash
-uv tool install google-agents-cli
+## System Architecture
+
+The tracker is implemented as a multi-agent delegation system using the Google Agent Development Kit (ADK). The architecture consists of an **Orchestrator Agent** coordinating four specialist sub-agents:
+
+```mermaid
+graph TD
+    User([User Prompt / Scheduled Trigger]) --> Orchestrator[Orchestrator Agent]
+    Orchestrator --> News[News Analyst Agent]
+    Orchestrator --> Oil[Oil Markets Analyst Agent]
+    Orchestrator --> Regional[Regional Markets Analyst Agent]
+    News --> Synthesiser[Synthesiser Agent]
+    Oil --> Synthesiser
+    Regional --> Synthesiser
+    Synthesiser --> Orchestrator
+    Orchestrator --> Delta[Delta Calculator Tool]
+    Orchestrator --> Output([Structured JSON Briefing])
 ```
 
 ---
 
-## Development Phases
+## 1. Orchestrator Agent
+### Purpose
+Coordinates the briefing generation cycle, triggers data collection, runs historical delta checks, and presents the final structured JSON briefing.
 
-### Phase 1: Understand Requirements
-Before writing any code, understand the project's requirements, constraints, and success criteria.
+### Capabilities & Tools
+- **`calculate_deltas`**: Compares current metrics against `history/briefings.json`.
+- **Sub-Agent Delegation**: Routes execution sequentially to the specialist sub-agents.
 
-### Phase 2: Build and Implement
-Implement agent logic in `app/`. Use `agents-cli playground` for interactive testing. Iterate based on user feedback.
-
-### Phase 3: The Evaluation Loop (Main Iteration Phase)
-Start with 1-2 eval cases, run `agents-cli eval generate`, then `agents-cli eval grade`, iterate by making changes and rerunning both commands until satisfied. Expect 5-10+ iterations. Once you have a baseline, reach for `agents-cli eval compare` (regression diffs), `agents-cli eval analyze` (cluster failure modes), and `agents-cli eval optimize` (auto-tune prompts). See the **Evaluation Guide** for metrics, dataset schema, LLM-as-judge config, and common gotchas.
-
-### Phase 4: Pre-Deployment Tests
-Run `uv run pytest tests/unit tests/integration`. Fix issues until all tests pass.
-
-### Phase 5: Deploy to Dev
-**Requires explicit human approval.** Run `agents-cli deploy` only after user confirms. See the **Deployment Guide** for details.
-
-### Phase 6: Production Deployment
-Ask the user: Option A (simple single-project) or Option B (full CI/CD pipeline with `agents-cli infra cicd`).
-
-## Development Commands
-
-| Command | Purpose |
-|---------|---------|
-| `agents-cli playground` | Interactive local testing |
-| `uv run pytest tests/unit tests/integration` | Run unit and integration tests |
-| `agents-cli eval dataset synthesize` | Synthesize multi-turn eval scenarios for your agent |
-| `agents-cli eval generate` | Run agent on eval dataset, produce traces |
-| `agents-cli eval grade` | Run agent evaluations on the traces |
-| `agents-cli eval compare` | Compare two grade-results files (regression check) |
-| `agents-cli eval analyze` | Cluster failure modes from grade results |
-| `agents-cli eval metric list` | List built-in metrics available in the SDK |
-| `agents-cli eval optimize` | Auto-tune agent prompts using eval data |
-| `agents-cli lint` | Check code quality |
-| `agents-cli infra single-project` | Set up project infrastructure (Terraform) |
-| `agents-cli deploy` | Deploy to dev |
-| `agents-cli scaffold enhance` | Add deployment target or CI/CD to project |
-| `agents-cli scaffold upgrade` | Upgrade project to latest version |
+### Constraints
+- Must enforce a strict output structure.
+- Must handle API rate limit errors gracefully using cache/mock fallbacks.
+- Must focus solely on conflict-related economic indicators, avoiding military/political speculation.
 
 ---
 
-## Operational Guidelines for Coding Agents
+## 2. News Analyst Agent
+### Purpose
+Queries NewsAPI and Brave Search MCP to find and summarize major news events regarding the geopolitical situation in the Middle East and its economic/market impacts.
 
-- **Code preservation**: Only modify code directly targeted by the user's request. Preserve all surrounding code, config values (e.g., `model`), comments, and formatting.
-- **NEVER change the model** unless explicitly asked.
-- **Model 404 errors**: Fix `GOOGLE_CLOUD_LOCATION` (e.g., `global` instead of `us-east1`), not the model name.
-- **ADK tool imports**: Import the tool instance, not the module: `from google.adk.tools.load_web_page import load_web_page`
-- **Run Python with `uv`**: `uv run python script.py`. Run `agents-cli install` first.
-- **Stop on repeated errors**: If the same error appears 3+ times, fix the root cause instead of retrying.
-- **Terraform conflicts** (Error 409): Use `terraform import` instead of retrying creation.
+### Capabilities & Tools
+- **`fetch_news_impact`**: Queries NewsAPI and Brave Search.
+- Summarizes events focusing strictly on economic aspects (e.g. shipping route disruptions, sanctions, refinery shutdowns).
+
+### Constraints
+- Avoid analyzing military tactics, casualties, or political statements unless they have a direct market impact.
+- Rate limits must be managed via local caching.
+
+---
+
+## 3. Oil Markets Analyst Agent
+### Purpose
+Tracks Brent and WTI crude prices, global energy sectors, and identifies price movements linked to geopolitical escalations.
+
+### Capabilities & Tools
+- **`fetch_oil_markets`**: Pulls commodity prices via `yfinance` or Alpha Vantage.
+- Computes standard moving averages and basic trends.
+
+### Constraints
+- Do not make price predictions or speculative forecasts (e.g., "oil will reach $120"). Frame findings as "market concerns" or "analyst sentiment".
+
+---
+
+## 4. Regional Markets Analyst Agent
+### Purpose
+Monitors major Middle East stock indices (TADAWUL, TA-35, EGX, QE Index) to gauge regional market sentiment.
+
+### Capabilities & Tools
+- **`fetch_regional_indices`**: Pulls index levels, daily changes, and trends via `yfinance`.
+
+### Constraints
+- Report only historical price movements and verified market commentary. Avoid speculation on regional stability.
+
+---
+
+## 5. Synthesiser Agent
+### Purpose
+Connects the dots between news, oil prices, and regional market indices. Synthesizes findings into a unified briefing and formats it into the final JSON schema.
+
+### Capabilities
+- Synthesizes qualitative news themes with quantitative market changes.
+- Formats output conforming to the `ConflictBriefing` schema.
+
+---
+
+## Final Briefing Output Schema (JSON)
+The agent outputs a structured JSON object containing:
+- `timestamp`: UTC execution timestamp.
+- `news_summary`: List of major economic headlines with impact ratings (High/Medium/Low).
+- `oil_market`: Current Brent and WTI prices, daily changes, and basic trend descriptors.
+- `regional_indices`: Current levels and daily percentage changes for TADAWUL, TA-35, EGX, and QE Index.
+- `global_indicators`: Safe-haven assets (Gold/USD index changes) and shipping indicators.
+- `deltas`: Daily/weekly changes computed from `history/briefings.json`.
+- `sentiment_index`: A consolidated "conflict economics sentiment score" (1-10 scale, where 10 is high market concern/disruption).

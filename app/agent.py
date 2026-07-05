@@ -28,7 +28,7 @@
 import datetime
 import os
 import asyncio
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
@@ -43,6 +43,15 @@ from google.genai import types
 
 import google.auth
 import json
+
+# Import tools
+from app.tools import (
+    fetch_news_impact,
+    fetch_oil_markets,
+    fetch_regional_indices,
+    calculate_deltas,
+    save_to_history
+)
 
 # ==============================================================================
 # GCP / VERTEX AI / GOOGLE AI STUDIO CREDENTIAL RESOLUTION
@@ -123,6 +132,8 @@ class RegionalIndicesBriefing(BaseModel):
     TA_35: IndexStatus = Field(description="Tel Aviv stock index status")
     EGX_30: IndexStatus = Field(description="Egypt EGX 30 index status")
     QE_Index: IndexStatus = Field(description="Qatar QE Index status")
+    DFMGI: IndexStatus = Field(description="Dubai (UAE) stock index status")
+    TEPIX: IndexStatus = Field(description="Tehran (Iran) stock index status")
 
 class GlobalIndicatorsBriefing(BaseModel):
     Gold: IndexStatus
@@ -145,6 +156,10 @@ class ConflictBriefing(BaseModel):
     global_indicators: GlobalIndicatorsBriefing = Field(description="Safe haven assets gold and USD index changes")
     sentiment_index: float = Field(description="Consolidated concern score from 1 to 10 (10 is highest market concern/disruption)")
     deltas: DeltaMetrics = Field(description="Computed changes compared to the previous daily run")
+    is_mock: bool = Field(default=False, description="Flag indicating if any source metric fell back to mock data")
+    is_mock_news: bool = Field(default=False, description="Flag indicating if news fell back to mock data")
+    is_mock_oil: bool = Field(default=False, description="Flag indicating if oil prices fell back to mock data")
+    is_mock_indices: bool = Field(default=False, description="Flag indicating if regional indices fell back to mock data")
 
 
 # ==============================================================================
@@ -180,11 +195,11 @@ async def init_state_callback(callback_context: CallbackContext):
 async def rate_limit_delay_callback(callback_context: CallbackContext):
     """
     Orchestration Hook: Runs before sub-agents execute.
-    Applies a 16-second delay only when utilizing Google AI Studio (Free Tier)
+    Applies a 20-second delay when utilizing Google AI Studio (Free Tier)
     to space out requests and avoid hitting the 5 Requests-Per-Minute (RPM) limit.
     """
-    if os.environ.get("GOOGLE_GENAI_USE_VERTEXAI") == "False":
-        await asyncio.sleep(16)
+    if os.environ.get("GEMINI_API_KEY"):
+        await asyncio.sleep(20)
 
 async def pre_synthesiser_callback(callback_context: CallbackContext):
     """
@@ -220,9 +235,59 @@ async def post_synthesiser_callback(callback_context: CallbackContext):
     """
     final_briefing = callback_context.state.get("final_briefing")
     if final_briefing:
+        # Auto-format and structure paragraph sections with newlines
+        import re
+        raw_comm = ""
+        if hasattr(final_briefing, "oil_market") and hasattr(final_briefing.oil_market, "analyst_commentary"):
+            raw_comm = final_briefing.oil_market.analyst_commentary or ""
+        elif isinstance(final_briefing, dict) and "oil_market" in final_briefing:
+            raw_comm = final_briefing["oil_market"].get("analyst_commentary", "")
+            
+        if raw_comm:
+            formatted = raw_comm.strip()
+            # Case-insensitive headers with optional trailing colons
+            headers = [
+                r"(?i)(ENERGY TRANSMISSION CHANNEL|ENERGY SECTOR TRANSMISSION CHANNEL):?",
+                r"(?i)(EQUITY & SAFE HAVEN CHANNELS|REGIONAL STOCK & SAFE HAVEN CHANNELS|REGIONAL EQUITY & SAFE HAVEN CHANNELS):?",
+                r"(?i)(48-HOUR MACROECONOMIC OUTLOOK):?"
+            ]
+            for header_pat in headers:
+                def repl_func(match):
+                    # Standardize matched headers to clean uppercase and colon
+                    hdr = match.group(1).upper().strip()
+                    hdr = hdr.rstrip(':')
+                    return f"\n\n{hdr}:\n"
+                formatted = re.sub(rf"\s*{header_pat}\s*", repl_func, formatted)
+                
+            formatted = re.sub(r'\n{3,}', '\n\n', formatted)
+            formatted = "\n\n".join([p.strip() for p in formatted.split("\n\n") if p.strip()])
+            
+            if hasattr(final_briefing, "oil_market") and hasattr(final_briefing.oil_market, "analyst_commentary"):
+                final_briefing.oil_market.analyst_commentary = formatted
+            elif isinstance(final_briefing, dict) and "oil_market" in final_briefing:
+                final_briefing["oil_market"]["analyst_commentary"] = formatted
+
+        # Determine if any of the underlying tools fell back to mock data
+        is_mock_news = callback_context.state.get("raw_news_data", {}).get("is_mock", False)
+        is_mock_oil = callback_context.state.get("raw_oil_data", {}).get("is_mock", False)
+        is_mock_reg = callback_context.state.get("raw_regional_data", {}).get("is_mock", False)
+        is_mock_any = bool(is_mock_news or is_mock_oil or is_mock_reg)
+
+        # Force the exact current UTC execution timestamp rather than letting the LLM round it
+        now_str = datetime.datetime.utcnow().isoformat() + "Z"
         if hasattr(final_briefing, "model_dump"):
+            final_briefing.timestamp = now_str
+            final_briefing.is_mock = is_mock_any
+            final_briefing.is_mock_news = is_mock_news
+            final_briefing.is_mock_oil = is_mock_oil
+            final_briefing.is_mock_indices = is_mock_reg
             briefing_dict = final_briefing.model_dump()
         else:
+            final_briefing["timestamp"] = now_str
+            final_briefing["is_mock"] = is_mock_any
+            final_briefing["is_mock_news"] = is_mock_news
+            final_briefing["is_mock_oil"] = is_mock_oil
+            final_briefing["is_mock_indices"] = is_mock_reg
             briefing_dict = final_briefing
             
         # Re-run delta calculator using the actual synthesised briefing data
@@ -303,6 +368,22 @@ synthesiser = Agent(
     
     You must construct the output conforming to the ConflictBriefing schema.
     
+    IMPORTANT: You must structure the `oil_market.analyst_commentary` as a comprehensive, report-grade Geopolitical Financial Briefing.
+    Guidelines for the commentary:
+    1. Make it simple to understand, avoiding overly dense financial jargon, but maintaining a highly professional, authoritative tone.
+    2. Make it longer and more insightful (aim for 250 to 350 words) to thoroughly evaluate transmission mechanisms.
+    3. Make explicit and robust use of the specific data points:
+       - Reference at least two specific news headlines from the news feed (e.g. Red Sea shipping insurance surges, Strait of Hormuz alerts).
+       - Reference Brent and WTI crude benchmark price values and their daily percentage changes.
+       - Reference stock indices values and daily percentage changes (Saudi TADAWUL, Tel Aviv TA-35).
+       - Reference safe-haven gold prices and USD index changes.
+    4. Clearly analyze the correlation: explain how specific news events are transmitting into these price movements (or note any key market divergences where prices are not reacting as expected).
+    5. Structure it into clean paragraphs representing:
+       - Executive Risk Summary (scoring risk 1-10)
+       - Energy Transmission Channel
+       - Equity & Safe Haven Channels
+       - 48-Hour Macroeconomic Outlook
+    
     Input data from state:
     - Raw News: {raw_news_data}
     - News Analysis Commentary: {news_analysis}
@@ -315,7 +396,7 @@ synthesiser = Agent(
     Tasks:
     1. Correlate news events with crude price movement and stock market sentiment.
     2. Determine a consolidated "conflict economics sentiment score" (sentiment_index) on a 1-10 scale (where 10 is high concern/panic).
-    3. Construct and populate the fields for news_summary, oil_market (including Brent and WTI details), regional_indices (TADAWUL, TA_35, EGX_30, QE_Index), global_indicators (Gold, USD_Index), and deltas exactly as defined.
+    3. Construct and populate the fields for news_summary (ensuring you include all 6 tracked headlines from raw_news_data), oil_market (including Brent and WTI details), regional_indices (TADAWUL, TA_35, EGX_30, QE_Index), global_indicators (Gold, USD_Index), and deltas exactly as defined.
     4. Set the timestamp to the current ISO format UTC time.
     5. The final output must be exactly the JSON object representing the ConflictBriefing model.
     """,
