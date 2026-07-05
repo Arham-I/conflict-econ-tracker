@@ -2,7 +2,7 @@
 
 An advanced, multi-agent geopolitical financial and economic transmission tracker built using the **Google Agent Development Kit (ADK)**. 
 
-This system monitors the measurable financial impacts of Middle East conflict escalations (focusing on crude oil benchmarks, regional stock indices, safe havens, and logistical channels), calculates historical performance deltas, and presents results in a dark-themed, interactive FastAPI dashboard equipped with live terminal logging, dynamic charts, and an expandable "Focus View" analyst modal.
+This system monitors the measurable financial impacts of Middle East conflict escalations (focusing on crude oil benchmarks, regional stock indices, safe havens, and logistical channels), calculates historical performance deltas, and presents results in a dark-themed, interactive FastAPI dashboard equipped with live terminal logging, dynamic charts, and an expandable "Focus View" analyst mode.
 
 ---
 
@@ -45,14 +45,14 @@ graph TD
 
 ## 3. Resilience & Rate-Limit Engineering
 
-To accommodate the strict constraints of the Google AI Studio free tier (which enforces limits of **5 Requests Per Minute (RPM)** and **250,000 Tokens Per Minute (TPM)** on unbilled accounts), the system implements two custom engineering safeguards:
+To accommodate the strict constraints of the Google AI Studio free tier, the system implements two custom engineering safeguards:
 
 1. **Orchestrator Lifecycle Delays**: In `app/agent.py`, a custom `rate_limit_delay_callback` hook intercepts the pipeline before the execution of the Oil, Regional, and Synthesiser agents, applying a **20-second sleep delay**. This spreads out the pipeline's 8 sequential API calls over 65 seconds, ensuring the pipeline *never* triggers a 5 RPM rate limit block during a run.
-2. **Suspension Interception & User Warnings**: In the background runner (`frontend/main.py`), the system monitors the terminal logs for ADK's checkpoint keyword (`Resume with: agents-cli`). If a session is suspended due to an API quota block before reaching the `[synthesiser]:` completion stage, the dashboard intercepts the exit state and appends a friendly, explanatory error warning to the logs, letting the user know whether they hit a minute-level cooldown or daily limit.
+2. **Suspension Interception & User Warnings**: In the background runner (`frontend/main.py`), the system monitors the terminal logs for ADK's checkpoint keyword (`Resume with: agents-cli`). If a session is suspended due to an API quota block before reaching the `[synthesiser]:` completion stage, the dashboard intercepts the exit state and appends a friendly, explanatory error warning to the logs, letting the user know that they hit their limit.
 
 ---
 
-## 4. Key Concepts Demonstrated (Rubric Compliance)
+## 4. Key Concepts Demonstrated
 
 This project implements **5 out of 6** key concepts from the Kaggle/Google Intensive course:
 1. **Multi-Agent System (ADK)**: Built entirely on the ADK Python SDK utilizing `SequentialAgent` orchestrators and `CallbackContext` state management.
