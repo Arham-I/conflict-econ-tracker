@@ -71,15 +71,18 @@ This project implements **5 out of 6** key concepts from the Kaggle/Google Inten
 * [Astral uv](https://github.com/astral-sh/uv) (recommended) or standard `pip`
 
 ### Step 1: Install Dependencies
-Install packages and sync virtual environment dependencies:
+Create a virtual environment, activate it, and install all required packages:
 ```bash
 cd conflict-econ-tracker
 
-# Option A: Using agents-cli (Recommended)
-agents-cli install
+# 1. Create a virtual environment (using uv or standard python)
+uv venv                  # or: python3 -m venv .venv
 
-# Option B: Using pip
-pip install -e .
+# 2. Activate the virtual environment
+source .venv/bin/activate
+
+# 3. Sync dependencies and register the local package
+uv sync                  # or: pip install -e .
 ```
 
 ### Step 2: Configure Environment Variables

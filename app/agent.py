@@ -96,7 +96,7 @@ else:
 
 # Define the shared Gemini model instance (utilizing 3 attempts for transient HTTP error retries)
 model_instance = Gemini(
-    model="gemini-flash-latest",
+    model="gemini-2.5-flash",
     retry_options=types.HttpRetryOptions(attempts=3),
 )
 
@@ -247,9 +247,9 @@ async def post_synthesiser_callback(callback_context: CallbackContext):
             formatted = raw_comm.strip()
             # Case-insensitive headers with optional trailing colons
             headers = [
-                r"(?i)(ENERGY TRANSMISSION CHANNEL|ENERGY SECTOR TRANSMISSION CHANNEL):?",
-                r"(?i)(EQUITY & SAFE HAVEN CHANNELS|REGIONAL STOCK & SAFE HAVEN CHANNELS|REGIONAL EQUITY & SAFE HAVEN CHANNELS):?",
-                r"(?i)(48-HOUR MACROECONOMIC OUTLOOK):?"
+                r"(ENERGY TRANSMISSION CHANNEL|ENERGY SECTOR TRANSMISSION CHANNEL):?",
+                r"(EQUITY & SAFE HAVEN CHANNELS|REGIONAL STOCK & SAFE HAVEN CHANNELS|REGIONAL EQUITY & SAFE HAVEN CHANNELS):?",
+                r"(48-HOUR MACROECONOMIC OUTLOOK):?"
             ]
             for header_pat in headers:
                 def repl_func(match):
@@ -257,7 +257,7 @@ async def post_synthesiser_callback(callback_context: CallbackContext):
                     hdr = match.group(1).upper().strip()
                     hdr = hdr.rstrip(':')
                     return f"\n\n{hdr}:\n"
-                formatted = re.sub(rf"\s*{header_pat}\s*", repl_func, formatted)
+                formatted = re.sub(rf"\s*{header_pat}\s*", repl_func, formatted, flags=re.IGNORECASE)
                 
             formatted = re.sub(r'\n{3,}', '\n\n', formatted)
             formatted = "\n\n".join([p.strip() for p in formatted.split("\n\n") if p.strip()])

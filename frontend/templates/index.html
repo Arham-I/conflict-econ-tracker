@@ -454,7 +454,7 @@
                 if (indicesMocked) mockedSources.push("Regional Indices");
                 
                 const sourcesStr = mockedSources.join(", ");
-                document.querySelector("#mock-warning-banner span").innerHTML = `⚠️ <strong>Simulated Data Notice:</strong> The live feeds for [${sourcesStr}] failed to load and are displaying simulated data.`;
+                document.querySelector("#mock-warning-banner span").innerHTML = `⚠️ <strong>Simulated Data Notice:</strong> The live feeds for [${sourcesStr}] failed to load (commonly due to Yahoo Finance API unreliability, regional geoblocks, or weekend market closures) and are displaying simulated data.`;
                 mockBanner.classList.remove("hidden");
             } else {
                 mockBanner.classList.add("hidden");
@@ -519,7 +519,7 @@
                 const wtiChg = wti.pct_change || 0.0;
                 const wtiChgEl = document.getElementById("wti-change");
                 wtiChgEl.innerText = (wtiChg > 0 ? "+" : "") + wtiChg.toFixed(2) + "%";
-                wtiChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${wtiChg > 0 ? 'bg-red-950/40 text-red-400 border border-red-900/30' : 'bg-green-950/40 text-green-400 border border-green-900/30'}`;
+                wtiChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${wtiChg > 0 ? 'bg-green-950/40 text-green-400 border border-green-900/30' : 'bg-red-950/40 text-red-400 border border-red-900/30'}`;
                 document.getElementById("wti-trend").innerText = wti.trend || "Bearish";
             }
 
@@ -528,7 +528,7 @@
                 const brentChg = brent.pct_change || 0.0;
                 const brentChgEl = document.getElementById("brent-change");
                 brentChgEl.innerText = (brentChg > 0 ? "+" : "") + brentChg.toFixed(2) + "%";
-                brentChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${brentChg > 0 ? 'bg-red-950/40 text-red-400 border border-red-900/30' : 'bg-green-950/40 text-green-400 border border-green-900/30'}`;
+                brentChgEl.className = `text-xs font-bold px-2 py-0.5 rounded ${brentChg > 0 ? 'bg-green-950/40 text-green-400 border border-green-900/30' : 'bg-red-950/40 text-red-400 border border-red-900/30'}`;
                 document.getElementById("brent-trend").innerText = brent.trend || "Bearish";
             }
 
