@@ -598,8 +598,9 @@
                 }
             }
 
-            // Commentary
-            document.getElementById("analyst-commentary-text").innerText = latest.oil_market?.analyst_commentary || "No commentary compiled.";
+            const commentaryContainer = document.getElementById("analyst-commentary-text");
+            commentaryContainer.innerText = latest.oil_market?.analyst_commentary || "No commentary compiled.";
+            commentaryContainer.classList.add("whitespace-pre-wrap");
 
             // News Feed List
             const feed = document.getElementById("news-feed-list");
@@ -631,6 +632,7 @@
         // Show News Detail Overlay/Modal (Modal alternative: inline details block)
         function showNewsDetail(item) {
             const commentary = document.getElementById("analyst-commentary-text");
+            commentary.classList.remove("whitespace-pre-wrap");
             commentary.innerHTML = `
                 <div class="border-l-2 border-red-500 pl-2">
                     <div class="flex justify-between items-center mb-2">
@@ -649,7 +651,9 @@
         function restoreCommentary() {
             if (briefings.length === 0) return;
             const latest = briefings[briefings.length - 1];
-            document.getElementById("analyst-commentary-text").innerText = latest.oil_market?.analyst_commentary || "No commentary compiled.";
+            const commentaryContainer = document.getElementById("analyst-commentary-text");
+            commentaryContainer.innerText = latest.oil_market?.analyst_commentary || "No commentary compiled.";
+            commentaryContainer.classList.add("whitespace-pre-wrap");
         }
 
         // Render line charts

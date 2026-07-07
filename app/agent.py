@@ -96,7 +96,7 @@ else:
 
 # Define the shared Gemini model instance (utilizing 3 attempts for transient HTTP error retries)
 model_instance = Gemini(
-    model="gemini-2.5-flash",
+    model="gemini-3.1-flash-lite",
     retry_options=types.HttpRetryOptions(attempts=3),
 )
 
@@ -378,11 +378,11 @@ synthesiser = Agent(
        - Reference stock indices values and daily percentage changes (Saudi TADAWUL, Tel Aviv TA-35).
        - Reference safe-haven gold prices and USD index changes.
     4. Clearly analyze the correlation: explain how specific news events are transmitting into these price movements (or note any key market divergences where prices are not reacting as expected).
-    5. Structure it into clean paragraphs representing:
-       - Executive Risk Summary (scoring risk 1-10)
-       - Energy Transmission Channel
-       - Equity & Safe Haven Channels
-       - 48-Hour Macroeconomic Outlook
+    5. You MUST split the commentary into four separate paragraphs, each starting with the exact uppercase heading on a new line:
+       EXECUTIVE RISK SUMMARY: (scoring risk 1-10)
+       ENERGY TRANSMISSION CHANNEL:
+       EQUITY & SAFE HAVEN CHANNELS:
+       48-HOUR MACROECONOMIC OUTLOOK:
     
     Input data from state:
     - Raw News: {raw_news_data}

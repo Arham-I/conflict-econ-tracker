@@ -1582,5 +1582,341 @@
     "is_mock_news": false,
     "is_mock_oil": false,
     "is_mock_indices": true
+  },
+  {
+    "timestamp": "2026-07-06T23:58:01.362406Z",
+    "news_summary": [
+      {
+        "title": "ADNEC Group Delivers Record $2.5B Economic Impact For UAE In 2025",
+        "source": "Forbes Middle East",
+        "impact_rating": "Low",
+        "summary": "Report focuses on regional economic performance in the UAE rather than direct conflict impacts."
+      },
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Low",
+        "summary": "Academic assessment of long-term global systemic risks associated with the ongoing conflict."
+      },
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "Low",
+        "summary": "An encyclopedic overview of energy chokepoint risks; no new operational data or incidents reported."
+      },
+      {
+        "title": "Middle East and North Africa: Latest analysis, insights and developments",
+        "source": "The World Economic Forum",
+        "impact_rating": "Low",
+        "summary": "Broad regional insights; currently lacks breaking news regarding infrastructure damage."
+      },
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "Highlights synergistic risks between regional logistical disruptions and global food supply chain vulnerabilities."
+      },
+      {
+        "title": "Higher oil prices from the war in the Middle East: assessing the headwinds for euro area growth",
+        "source": "European Central Bank",
+        "impact_rating": "Low",
+        "summary": "Retrospective analysis on how energy-driven inflation creates headwinds for the European economy."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.79,
+        "pct_change": 0.15,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.23,
+        "pct_change": 0.6,
+        "trend": "Bullish"
+      },
+      "analyst_commentary": "The Executive Risk Summary holds at a 7/10, reflecting heightened sensitivity to regional logistical chokepoints. Markets are currently navigating a 'compound shock' scenario, where fears regarding the Strait of Hormuz\u2014as detailed in encyclopedic risk assessments\u2014intertwine with global supply chain vulnerabilities noted in 'The Guardian's' recent analysis. This risk perception is clearly reflected in the divergence between energy and equity markets. While Brent Crude (+0.60% to $72.23) and WTI (+0.15% to $68.79) maintain a bullish to range-bound posture, regional equity indices are seeing clear divestment. The Saudi TADAWUL fell 0.38% and Israel's TA-35 dropped 1.14%, indicating that local capital is pricing in significant geopolitical instability. The most striking transmission mechanism is the flight to safety, evidenced by the 1.46% surge in gold, which stands in contrast to the marginal -0.02% move in the USD index. This suggests that investors are hedging directly against tangible resource scarcity rather than seeking liquidity. Over the 48-hour macro outlook, we expect continued volatility; if no physical disruption occurs at key energy chokepoints, markets may attempt a technical correction. However, the synergy of current geopolitical tensions and climate-driven agricultural pressures creates a floor for the 'threat premium' currently baked into global energy benchmarks."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 3985.4,
+        "change": 12.5,
+        "pct_change": 0.31
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4172.9,
+        "change": 60.2,
+        "pct_change": 1.46
+      },
+      "USD_Index": {
+        "level": 100.84,
+        "change": -0.02,
+        "pct_change": -0.02
+      }
+    },
+    "sentiment_index": 7.0,
+    "deltas": {
+      "brent_change_pct": 0.4,
+      "wti_change_pct": 0.39,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": -0.02,
+      "sentiment_shift": 1.0,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
+  },
+  {
+    "timestamp": "2026-07-07T00:49:40.039069Z",
+    "news_summary": [
+      {
+        "title": "Impact of Middle East Crisis on Global Energy Markets",
+        "source": "Institute for Energy Economics and Financial Analysis (IEEFA)",
+        "impact_rating": "High",
+        "summary": "Highlights potential shifts in energy pricing and supply stability due to disruptions in production and export pathways."
+      },
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "Warns of supply chain disruptions in the Middle East exacerbated by climatic events, threatening regional trade."
+      },
+      {
+        "title": "ADNEC Group Delivers Record $2.5B Economic Impact For UAE In 2025",
+        "source": "Forbes Middle East",
+        "impact_rating": "Low",
+        "summary": "Focuses on localized annual fiscal performance in the UAE rather than conflict-driven volatility."
+      },
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Low",
+        "summary": "A broad academic overview of long-term economic implications lacking immediate-term market data."
+      },
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "Low",
+        "summary": "Provides contextual background on geography and potential transit points like the Strait of Hormuz."
+      },
+      {
+        "title": "Middle East and North Africa: Latest analysis, insights and developments",
+        "source": "The World Economic Forum",
+        "impact_rating": "Low",
+        "summary": "Provides a holistic perspective on regional trends rather than immediate event-based shocks."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.79,
+        "pct_change": 0.15,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.23,
+        "pct_change": 0.6,
+        "trend": "Bullish"
+      },
+      "analyst_commentary": "EXECUTIVE RISK SUMMARY: 8. The geopolitical landscape in the Middle East is currently exerting a significant influence on global financial markets, with risks elevated by the interplay of kinetic conflict and maritime transit security. Market participants are increasingly wary of the 'compound shock effect' as described by The Guardian, where the intersection of regional instability and environmental challenges threatens to degrade supply chain resilience, directly impacting energy-intensive economies.\n\nENERGY TRANSMISSION CHANNEL:\nOil markets are manifesting clear bifurcation. Brent crude, trading at $72.23 (+0.60%), remains in a bullish trend as it captures the acute risk premium associated with potential Strait of Hormuz alerts. Conversely, WTI is trading at $68.79 (+0.15%), showing a bearish technical setup below its 5-day SMA. This divergence suggests that while international buyers are hedging against Middle Eastern supply disruptions, domestic U.S. demand-side pressures are providing a countervailing force on pricing.\n\nEQUITY & SAFE HAVEN CHANNELS:\nEquity indices in the region are retreating under the shadow of uncertainty; the Tel Aviv TA-35 has slumped by 1.14% to 1948.15, while the Saudi TADAWUL fell 0.38% to 11724.8. Investors are pivoting aggressively toward safe-haven assets, evidenced by the 1.46% surge in gold to 4172.9. The USD Index remains largely static at 100.84 (-0.02%), indicating that regional liquidity is currently focused more on hedging localized risk rather than broader currency-based safe-haven positioning.\n\n48-HOUR MACROECONOMIC OUTLOOK:\nThe market remains highly vulnerable to any further reports regarding Red Sea shipping insurance surges or escalations near critical infrastructure. We expect continued volatility as capital flows out of regional equities and into defensive assets. Divergence between crude benchmarks will likely persist unless a major disruption to physical shipping lanes materializes, forcing a reassessment of global supply premium pricing."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 3985.4,
+        "change": 12.5,
+        "pct_change": 0.31
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4172.9,
+        "change": 60.2,
+        "pct_change": 1.46
+      },
+      "USD_Index": {
+        "level": 100.84,
+        "change": -0.02,
+        "pct_change": -0.02
+      }
+    },
+    "sentiment_index": 8.0,
+    "deltas": {
+      "brent_change_pct": 0.0,
+      "wti_change_pct": 0.0,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": 0.0,
+      "sentiment_shift": 1.0,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
+  },
+  {
+    "timestamp": "2026-07-07T01:40:45.376922Z",
+    "news_summary": [
+      {
+        "title": "Impact of Middle East Crisis on Global Energy Markets",
+        "source": "Institute for Energy Economics and Financial Analysis (IEEFA)",
+        "impact_rating": "High",
+        "summary": "Highlights the direct sensitivity of global energy pricing to Middle Eastern supply chain security and potential for price shocks."
+      },
+      {
+        "title": "ADNEC Group Delivers Record $2.5B Economic Impact For UAE In 2025",
+        "source": "Forbes Middle East",
+        "impact_rating": "Low",
+        "summary": "A corporate financial report regarding UAE business operations with no direct relevance to regional security risks."
+      },
+      {
+        "title": "Global economic implications of the 2026 Middle East war",
+        "source": "Peterson Institute for International Economics",
+        "impact_rating": "Low",
+        "summary": "Provides a high-level overview of long-term economic modeling rather than active market variables."
+      },
+      {
+        "title": "2026 Iran war | Deal, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
+        "source": "Encyclopedia Britannica",
+        "impact_rating": "Low",
+        "summary": "Offers encyclopedic context on the conflict and maritime chokepoints without actionable market data."
+      },
+      {
+        "title": "Middle East and North Africa: Latest analysis, insights and developments",
+        "source": "The World Economic Forum",
+        "impact_rating": "Low",
+        "summary": "Provides general regional economic commentary lacking granular data on specific supply chain disruptions."
+      },
+      {
+        "title": "\u2018Compound shock effect\u2019: why the Middle East crisis and El Ni\u00f1o could spell disaster in south-east Asia",
+        "source": "The Guardian",
+        "impact_rating": "High",
+        "summary": "Analyzes systemic risks to trade-dependent regions from shipping disruptions and environmental pressures."
+      }
+    ],
+    "oil_market": {
+      "WTI": {
+        "price": 68.75,
+        "pct_change": 0.09,
+        "trend": "Bearish"
+      },
+      "Brent": {
+        "price": 72.17,
+        "pct_change": 0.52,
+        "trend": "Bullish"
+      },
+      "analyst_commentary": "EXECUTIVE RISK SUMMARY: (scoring risk 7-10). The current market environment is characterized by acute anxiety surrounding the stability of critical Middle Eastern infrastructure. High-impact analysis from the IEEFA underscores that the concentration of energy assets in this region leaves global commodity pricing highly vulnerable to even minor security escalations. The persistent threat to the Strait of Hormuz, as noted in various conflict briefings, is creating a tangible risk premium that is currently being tested by investors.\n\nENERGY TRANSMISSION CHANNEL:\nCrude oil benchmarks are experiencing a clear divergence reflective of localized market pressures versus broader global hedging. Brent crude has climbed to $72.17 (+0.52%), buoyed by a bullish trend as traders factor in potential transit disruptions. Conversely, WTI crude remains trapped in a consolidation phase at $68.75 (+0.09%), hampered by domestic supply-demand dynamics that provide a counterbalance to the external geopolitical risk premia seen in global benchmarks. The market is closely monitoring 'compound shock' reporting, which suggests that shipping insurance surges and maritime route instability are now the primary drivers of volatility.\n\nEQUITY & SAFE HAVEN CHANNELS:\nBroad regional indices are reacting with a classic risk-off posture. The TA-35 has slumped 1.14%, reflecting acute local security concerns, while the TADAWUL has shed 0.38%, impacted by the same regional malaise. Market participants are rotating capital away from equities and into defensive assets; this is evidenced by the 0.81% surge in gold to $4,146. Interestingly, the USD index remains nearly flat at 100.88 (+0.01%), suggesting that investors are specifically seeking the inflation-hedging qualities of gold rather than engaging in a wider liquidity grab across currencies.\n\n48-HOUR MACROECONOMIC OUTLOOK:\nWe anticipate continued pressure on regional equity markets as the compound shock risks identified by The Guardian materialize into higher insurance and shipping premiums. Investors should watch for further volatility in Brent as it reacts to potential alerts in the Strait of Hormuz. Unless there is a significant de-escalation of rhetoric, equity indices are likely to remain range-bound or drift lower, while gold will likely hold its gains as the preferred mechanism for navigating regional uncertainty."
+    },
+    "regional_indices": {
+      "TADAWUL": {
+        "level": 11724.8,
+        "change": -45.2,
+        "pct_change": -0.38
+      },
+      "TA_35": {
+        "level": 1948.15,
+        "change": -22.4,
+        "pct_change": -1.14
+      },
+      "EGX_30": {
+        "level": 28410.2,
+        "change": 120.5,
+        "pct_change": 0.43
+      },
+      "QE_Index": {
+        "level": 9812.5,
+        "change": -15.1,
+        "pct_change": -0.15
+      },
+      "DFMGI": {
+        "level": 3985.4,
+        "change": 12.5,
+        "pct_change": 0.31
+      },
+      "TEPIX": {
+        "level": 2085420.0,
+        "change": -12450.0,
+        "pct_change": -0.59
+      }
+    },
+    "global_indicators": {
+      "Gold": {
+        "level": 4146.0,
+        "change": 33.3,
+        "pct_change": 0.81
+      },
+      "USD_Index": {
+        "level": 100.88,
+        "change": 0.01,
+        "pct_change": 0.01
+      }
+    },
+    "sentiment_index": 7.5,
+    "deltas": {
+      "brent_change_pct": -0.08,
+      "wti_change_pct": -0.06,
+      "tadawul_change_pct": 0.0,
+      "ta35_change_pct": 0.0,
+      "gold_change_pct": -0.64,
+      "sentiment_shift": -0.5,
+      "days_since_last_briefing": 1
+    },
+    "is_mock": true,
+    "is_mock_news": false,
+    "is_mock_oil": false,
+    "is_mock_indices": true
   }
 ]

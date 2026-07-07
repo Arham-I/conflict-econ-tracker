@@ -75,7 +75,7 @@ If the information is not present in the briefing, explain that it is outside th
 Keep the answer concise (2-3 paragraphs max) and focus on economic and market transmission impacts. Do not speculate on military actions or make political opinions.
 """
         response = client.models.generate_content(
-            model='gemini-2.5-flash',
+            model='gemini-3.1-flash-lite',
             contents=prompt
         )
         return JSONResponse(content={"answer": response.text})

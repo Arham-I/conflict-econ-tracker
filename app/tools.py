@@ -253,11 +253,16 @@ def fetch_oil_markets(tool_context: ToolContext) -> Dict[str, Any]:
         if len(wti_history) >= 2 and len(brent_history) >= 2:
             wti_price = float(wti_history["Close"].iloc[-1])
             wti_prev = float(wti_history["Close"].iloc[-2])
-            wti_change = wti_price - wti_prev
-            wti_pct_change = (wti_change / wti_prev) * 100
-
             brent_price = float(brent_history["Close"].iloc[-1])
             brent_prev = float(brent_history["Close"].iloc[-2])
+            
+            import math
+            if (math.isnan(wti_price) or math.isnan(wti_prev) or 
+                math.isnan(brent_price) or math.isnan(brent_prev)):
+                raise ValueError("NaN values detected in history close")
+                
+            wti_change = wti_price - wti_prev
+            wti_pct_change = (wti_change / wti_prev) * 100
             brent_change = brent_price - brent_prev
             brent_pct_change = (brent_change / brent_prev) * 100
 
@@ -360,6 +365,11 @@ def fetch_regional_indices(tool_context: ToolContext) -> Dict[str, Any]:
             if len(hist) >= 2:
                 price = float(hist["Close"].iloc[-1])
                 prev = float(hist["Close"].iloc[-2])
+                
+                import math
+                if math.isnan(price) or math.isnan(prev):
+                    raise ValueError("NaN values detected in history close")
+                    
                 change = price - prev
                 pct_change = (change / prev) * 100
                 data[name] = {
