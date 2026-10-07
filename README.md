@@ -1,4 +1,5 @@
-# Conflict Economics Intelligence Dashboard
+# Conflict Economics Intelligence Dashboard 
+(*See [Kaggle writeup](https://www.kaggle.com/competitions/vibecoding-agents-capstone-project/writeups)*)
 
 An advanced, multi-agent geopolitical financial and economic transmission tracker built using the **Google Agent Development Kit (ADK)**. 
 
